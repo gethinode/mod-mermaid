@@ -1,3 +1,3 @@
-module github.com/gethinode/mod-template
+module github.com/gethinode/mod-mermaid
 
 go 1.19

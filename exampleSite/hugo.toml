@@ -1,12 +1,12 @@
 baseURL = 'http://example.org/'
 languageCode = 'en-us'
-title = 'Test site for mod-template'
+title = 'Test site for mod-mermaid'
 
 [module]
-  # Build and serve using local mod-template clone declared in the named Hugo workspace:
-  workspace = "mod-template.work"
+  # Build and serve using local mod-mermaid clone declared in the named Hugo workspace:
+  workspace = "mod-mermaid.work"
   [[module.imports]]
-    path = "github.com/gethinode/mod-template"
+    path = "github.com/gethinode/mod-mermaid"
   [[module.imports.mounts]]
     source = "dist"
     target = "static"
