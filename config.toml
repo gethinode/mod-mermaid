@@ -4,6 +4,9 @@
     min = "0.110.0"
     max = ""
   [[module.mounts]]
+    source = "dist/mermaid.js"
+    target = "assets/js/modules/mermaid/mermaid.js"
+  [[module.mounts]]
     source = 'layouts'
     target = 'layouts'
   [[module.mounts]]

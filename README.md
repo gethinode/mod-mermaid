@@ -2,7 +2,7 @@
 
 <!-- Tagline -->
 <p align="center">
-    <b>A Hugo module to add diagrams and charts powered by Mermaid to your Hinode site (work in progress)</b>
+    <b>A Hugo module to add diagrams and charts powered by Mermaid to your Hinode site</b>
     <br />
 </p>
 
@@ -33,6 +33,52 @@
 ![Logo](https://raw.githubusercontent.com/gethinode/hinode/main/static/img/logo.png)
 
 Hinode is a clean blog theme for [Hugo][hugo], an open-source static site generator. Hinode is available as a [template][repository_template], and a [main theme][repository]. This repository maintains a Hugo module to add [Mermaid][mermaid] to a Hinode site. Visit the Hinode documentation site for [installation instructions][hinode_docs].
+
+## Usage
+
+The module is "optional" per default. In this case the module must be enabled in the frontmatter of the pages that use mermaid by adding: `modules: ["mermaid"]`
+
+Mermaid can be used in fenced codeblocks:
+
+<pre>
+```mermaid
+YOUR DIAGRAMS
+```
+</pre>
+
+or as shortcode:
+
+<pre>
+{{< mermaid >}}
+YOUR DIAGRAM
+{{< /mermaid >}}
+</pre>
+
+The module supports dark mode and allows creation of a custom mermaid theme by overriding and setting the theme variables in `assets/scss/mermaid.scss`. Checkout the [mermaid docs](https://mermaid.js.org/config/theming.html) for custom styling. All theme variables can be used, but in kebab case and with prefix as shown in the example below. Also bootstrap theme variables can be referenced.
+
+```scss
+// assets/scss/mermaid.scss
+
+[data-mermaid-theme="light"] {
+    // The Mermaid Theme (only 'base' does support custom theming)
+    --mermaid-theme: 'base';
+    // General Theme Variables
+    --mermaid-dark-mode: false;
+    --mermaid-background: var(--bs-body-bg);
+    --mermaid-font-family: var(--bs-font-sans-serif);
+    //...
+}
+
+[data-mermaid-theme="dark"] {
+    // The Mermaid Theme (only 'base' does support custom theming)
+    --mermaid-theme: 'base';
+    // General Theme Variables
+    --mermaid-dark-mode: true;
+    --mermaid-background: var(--bs-body-bg);
+    --mermaid-font-family: var(--bs-font-sans-serif);
+    //...
+}
+```
 
 ## Contributing
 
