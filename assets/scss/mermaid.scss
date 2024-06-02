@@ -1,0 +1,196 @@
+/* 
+ * All variables are supported from:
+ * https://mermaid.js.org/config/theming.html 
+ * The values only are taken over if --mermaid-theme: 'base' is set.
+ */
+
+[data-mermaid-theme="light"]{
+
+    // The Mermaid Theme (only 'base' does support custom theming)
+    --mermaid-theme: 'default';
+
+    // General Theme Variables
+    // --mermaid-dark-mode: false;
+    // --mermaid-background: var(--bs-body-bg);
+    // --mermaid-font-family: var(--bs-font-sans-serif); //"trebuchet ms, verdana, arial";
+    // --mermaid-font-size: 14px;
+    // --mermaid-primary-color: var(--bs-secondary);
+    // --mermaid-primary-text-color: var(--bs-body-color);
+    // --mermaid-secondary-color: var(--bs-info);
+    // --mermaid-primary-border-color: var(--bs-primary-border-subtle);
+    // --mermaid-secondary-border-color: var(--bs-border-color);
+    // --mermaid-secondary-text-color: var(--bs-body-bg);
+    // --mermaid-tertiary-color: var(--bs-primary);
+    // --mermaid-tertiary-border-color: var(--bs-border-color);
+    // --mermaid-tertiary-text-color: var(--bs-body-color);
+    // --mermaid-note-bkg-color: var(--bs-info-bg-subtle);
+    // --mermaid-note-text-color: var(--bs-body-color);
+    // --mermaid-note-border-color: var(--bs-border-color);
+    // --mermaid-line-color: var(--bs-body-color);
+    // --mermaid-text-color: var(--bs-body-color);
+    // --mermaid-main-bkg: var(--bs-primary-bg-subtle);
+    // --mermaid-error-bkg-color: var(--mermaid-tertiary-color);
+    // --mermaid-error-text-color: var(--mermaid-tertiary-text-color);
+
+    // Flowchart Variables
+    // --mermaid-node-border: var(--mermaid-primary-border-color);
+    // --mermaid-cluster-bkg: var(--mermaid-tertiary-color);
+    // --mermaid-cluster-border: var(--mermaid-tertiary-border-color);
+    // --mermaid-default-link-color: var(--mermaid-line-color);
+    // --mermaid-title-color: var(--mermaid-tertiary-text-color);
+    // --mermaid-edge-label-background: var(--mermaid-secondary-colo);
+    // --mermaid-node-text-color: var(--mermaid-primary-text-color);
+
+    // Sequence Diagram Variables
+    // --mermaid-actor-bkg: var(--mermaid-main-bkg);
+    // --mermaid-actor-border: var(--mermaid-primary-border-color);
+    // --mermaid-actor-text-color: var(--mermaid-primary-text-color);
+    // --mermaid-actor-line-color: var(--mermaid-line-color);
+    // --mermaid-signal-color: var(--mermaid-primary-color);
+    // --mermaid-signal-text-color: var(--mermaid-text-color);
+    // --mermaid-label-box-bkg-color: var(--mermaid-actor-bkg);
+    // --mermaid-label-box-border-color: var(--mermaid-actor-border);
+    // --mermaid-label-text-color: var(--mermaid-actor-text-color);
+    // --mermaid-loop-text-color: var(--mermaid-actor-text-color);
+    // --mermaid-activation-border-color: var(--mermaid-secondary-border-color);
+    // --mermaid-activation-bkg-color: var(--mermaid-secondary-color);
+    // --mermaid-sequence-number-color: var(--mermaid-line-color);
+
+    // Pie Diagram Variables
+    // --mermaid-pie1: var(--mermaid-primary-color);
+    // --mermaid-pie2: var(--mermaid-secondary-color);
+    // --mermaid-pie3: // calculated from tertiary;
+    // --mermaid-pie4: var(--mermaid-primary-color);
+    // --mermaid-pie5: var(--mermaid-secondary-color);
+    // --mermaid-pie6: var(--mermaid-tertiary-color);
+    // --mermaid-pie7: var(--mermaid-primary-color);
+    // --mermaid-pie8: var(--mermaid-primary-color);
+    // --mermaid-pie9: var(--mermaid-primary-color);
+    // --mermaid-pie10: var(--mermaid-primary-color);
+    // --mermaid-pie11: var(--mermaid-primary-color);
+    // --mermaid-pie12: var(--mermaid-primary-color);
+    // --mermaid-pie-title-text-size: 25px;
+    // --mermaid-pie-title-text-color: var(--mermaid-text-color);
+    // --mermaid-pie-section-text-size: 17px;
+    // --mermaid-pie-section-text-color: var(--mermaid-text-color);
+    // --mermaid-pie-legend-text-size: 17px;
+    // --mermaid-pie-legend-text-color: var(--mermaid-text-color);
+    // --mermaid-pie-stroke-color: var(--bs-body-color);
+    // --mermaid-pie-stroke-width: 2px;
+    // --mermaid-pie-outer-stroke-width: 2px;
+    // --mermaid-pie-outer-stroke-color: var(--bs-body-color);
+    // --mermaid-pie-opacity: 0.7;
+
+    // State Colors
+    // --mermaid-label-color: var(--mermaid-primary-text-color);
+    // --mermaid-alt-background: var(--mermaid-tertiary-color);
+
+    // Class colors
+    // --mermaid-class-text: var(--mermaid-text-color);
+
+    // User Journey Colors
+    // --mermaid-fill-type0: var(--mermaid-primary-color);
+    // --mermaid-fill-type1: var(--mermaid-secondary-color);
+    // --mermaid-fill-type2: // calculated from primaryColor;
+    // --mermaid-fill-type3: //calculated from secondaryColor;
+    // --mermaid-fill-type4: // calculated from primaryColor;
+    // --mermaid-fill-type5: // calculated from secondaryColor;
+    // --mermaid-fill-type6: // calculated from primaryColor;
+    // --mermaid-fill-type7: // calculated from secondaryColor;
+}
+
+
+[data-mermaid-theme="dark"]{
+
+    // The Mermaid Theme (only 'base' does support custom theming)
+    --mermaid-theme: 'dark';
+
+    // General Theme Variables
+    // --mermaid-dark-mode: true;
+    // --mermaid-background: var(--bs-body-bg);
+    // --mermaid-font-family: var(--bs-font-sans-serif); //"trebuchet ms, verdana, arial";
+    // --mermaid-font-size: 16px;
+    // --mermaid-primary-color: var(--bs-primary);
+    // --mermaid-primary-text-color: var(--bs-body-color);
+    // --mermaid-secondary-color: var(--bs-primary);
+    // --mermaid-primary-border-color: var(--bs-border-color);
+    // --mermaid-secondary-border-color: var(--bs-border-color);
+    // --mermaid-secondary-text-color: var(--bs-body-color);
+    // --mermaid-tertiary-color: var(--bs-warn);
+    // --mermaid-tertiary-border-color: var(--bs-border-color);
+    // --mermaid-tertiary-text-color: var(--bs-body-color);
+    // --mermaid-note-bkg-color: var(--bs-info);
+    // --mermaid-note-text-color: var(--bs-body-color);
+    // --mermaid-note-border-color: var(--bs-border-color);
+    // --mermaid-line-color: var(--bs-body-color);
+    // --mermaid-text-color: var(--bs-body-color);
+    // --mermaid-main-bkg: var(--bs-dark-bg-subtle);
+    // --mermaid-error-bkg-color: var(--mermaid-tertiary-color);
+    // --mermaid-error-text-color: var(--mermaid-tertiary-text-color);
+
+    // Flowchart Variables
+    // --mermaid-node-border: var(--mermaid-primary-border-color);
+    // --mermaid-cluster-bkg: var(--mermaid-tertiary-color);
+    // --mermaid-cluster-border: var(--mermaid-tertiary-border-color);
+    // --mermaid-default-link-color: var(--mermaid-line-color);
+    // --mermaid-title-color: var(--mermaid-tertiary-text-color);
+    // --mermaid-edge-label-background: var(--mermaid-secondary-colo);
+    // --mermaid-node-text-color: var(--mermaid-primary-text-color);
+
+    // Sequence Diagram Variables
+    // --mermaid-actor-bkg: var(--mermaid-main-bkg);
+    // --mermaid-actor-border: var(--mermaid-primary-border-color);
+    // --mermaid-actor-text-color: var(--mermaid-primary-text-color);
+    // --mermaid-actor-line-color: var(--mermaid-line-color);
+    // --mermaid-signal-color: var(--mermaid-primary-color);
+    // --mermaid-signal-text-color: var(--mermaid-text-color);
+    // --mermaid-label-box-bkg-color: var(--mermaid-actor-bkg);
+    // --mermaid-label-box-border-color: var(--mermaid-actor-border);
+    // --mermaid-label-text-color: var(--mermaid-actor-text-color);
+    // --mermaid-loop-text-color: var(--mermaid-actor-text-color);
+    // --mermaid-activation-border-color: var(--mermaid-secondary-border-color);
+    // --mermaid-activation-bkg-color: var(--mermaid-secondary-color);
+    // --mermaid-sequence-number-color: var(--mermaid-line-color);
+
+    // Pie Diagram Variables
+    // --mermaid-pie1: var(--mermaid-primary-color);
+    // --mermaid-pie2: var(--mermaid-secondary-color);
+    // --mermaid-pie3: // calculated from tertiary;
+    // --mermaid-pie4: var(--mermaid-primary-color);
+    // --mermaid-pie5: var(--mermaid-secondary-color);
+    // --mermaid-pie6: var(--mermaid-tertiary-color);
+    // --mermaid-pie7: var(--mermaid-primary-color);
+    // --mermaid-pie8: var(--mermaid-primary-color);
+    // --mermaid-pie9: var(--mermaid-primary-color);
+    // --mermaid-pie10: var(--mermaid-primary-color);
+    // --mermaid-pie11: var(--mermaid-primary-color);
+    // --mermaid-pie12: var(--mermaid-primary-color);
+    // --mermaid-pie-title-text-size: 25px;
+    // --mermaid-pie-title-text-color: var(--mermaid-text-color);
+    // --mermaid-pie-section-text-size: 17px;
+    // --mermaid-pie-section-text-color: var(--mermaid-text-color);
+    // --mermaid-pie-legend-text-size: 17px;
+    // --mermaid-pie-legend-text-color: var(--mermaid-text-color);
+    // --mermaid-pie-stroke-color: var(--bs-body-color);
+    // --mermaid-pie-stroke-width: 2px;
+    // --mermaid-pie-outer-stroke-width: 2px;
+    // --mermaid-pie-outer-stroke-color: var(--bs-body-color);
+    // --mermaid-pie-opacity: 0.7;
+
+    // State Colors
+    // --mermaid-label-color: var(--mermaid-primary-text-color);
+    // --mermaid-alt-background: var(--mermaid-tertiary-color);
+
+    // Class colors
+    // --mermaid-class-text: var(--mermaid-text-color);
+
+    // User Journey Colors
+    // --mermaid-fill-type0: var(--mermaid-primary-color);
+    // --mermaid-fill-type1: var(--mermaid-secondary-color);
+    // --mermaid-fill-type2: // calculated from primaryColor;
+    // --mermaid-fill-type3: // calculated from secondaryColor;
+    // --mermaid-fill-type4: // calculated from primaryColor;
+    // --mermaid-fill-type5: // calculated from secondaryColor;
+    // --mermaid-fill-type6: // calculated from primaryColor;
+    // --mermaid-fill-type7: // calculated from secondaryColor;
+}

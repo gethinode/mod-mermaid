@@ -1,0 +1,8 @@
+
+# default configuration for mermaid
+
+[modules]
+    [modules.mermaid]
+        integration = "optional"
+        disableTemplate = true
+        state = "defer"
