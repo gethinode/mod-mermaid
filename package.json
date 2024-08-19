@@ -49,7 +49,7 @@
     "husky": "^9.1.4",
     "mermaid": "^10.9.1",
     "rimraf": "^6.0.1",
-    "semantic-release": "^24.0.0"
+    "semantic-release": "^24.1.0"
   },
   "hugo-bin": {
     "buildTags": "extended"
