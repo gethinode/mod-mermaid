@@ -47,7 +47,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "hugo-bin": "^0.136.2",
     "husky": "^9.1.7",
-    "mermaid": "^11.4.0",
+    "mermaid": "^11.4.1",
     "rimraf": "^6.0.1",
     "semantic-release": "^24.2.0"
   },
