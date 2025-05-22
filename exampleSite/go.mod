@@ -15,7 +15,7 @@ require (
 	github.com/gethinode/mod-lottie v1.5.14 // indirect
 	github.com/gethinode/mod-mermaid v1.0.0 // indirect
 	github.com/gethinode/mod-simple-datatables v1.1.7 // indirect
-	github.com/gethinode/mod-utils/v2 v2.10.0 // indirect
+	github.com/gethinode/mod-utils/v3 v3.0.2 // indirect
 	github.com/nextapps-de/flexsearch v0.0.0-20250515065605-e9c26f06b404 // indirect
 	github.com/twbs/bootstrap v5.3.6+incompatible // indirect
 )
