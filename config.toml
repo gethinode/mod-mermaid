@@ -15,3 +15,6 @@
   [[module.mounts]]
     source = 'static'
     target = 'static'
+
+[params.modules.mermaid]
+  integration = "optional"
