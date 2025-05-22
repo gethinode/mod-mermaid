@@ -1,12 +1,11 @@
 ---
-title: Test site
-description: Site to test module shortcode(s).
-date: 2023-07-10
+title: Mermaid Test site
+description: Site to test mermaid module.
+date: 2025-05-22
 modules: ["mermaid"]
 ---
 
 ## Mermaid example
-
 
 ### Flowchart
 
@@ -52,7 +51,6 @@ sequenceDiagram
     end
 ```
 
-
 ### Class Diagram
 
 ```mermaid
@@ -73,7 +71,6 @@ classDiagram
   Student "1" --o "1" Bike : rides
 ```
 
-
 ### State Diagram
 
 ```mermaid
@@ -86,7 +83,6 @@ stateDiagram-v2
     State1 --> State2
     note left of State2 : This is the note to the left.
 ```
-
 
 ### Entity Relationship Diagram
 
@@ -109,7 +105,6 @@ erDiagram
         float pricePerUnit
     }
 ```
-
 
 ### Gantt Diagram
 
@@ -144,9 +139,7 @@ gantt
     Describe gantt syntax               :after doc1, 3d
     Add gantt diagram to demo page      :20h
     Add another diagram to demo page    :48h
-
 ```
-
 
 ### User Journey
 
@@ -162,7 +155,6 @@ journey
       Sit down: 5: Me
 ```
 
-
 ### Pie Chart
 
 ```mermaid
@@ -174,7 +166,6 @@ pie showData
     "Magnesium" : 10.01
     "Iron" :  5
 ```
-
 
 ### Quadrant Chart
 
@@ -193,9 +184,7 @@ quadrantChart
     Campaign D: [0.78, 0.34]
     Campaign E: [0.40, 0.34]
     Campaign F: [0.35, 0.78]
-
 ```
-
 
 ### Requirement Chart
 
@@ -269,7 +258,6 @@ quadrantChart
     test_req <- copies - test_entity2
 ```
 
-
 ### Git Graph
 
 ```mermaid
@@ -331,7 +319,6 @@ quadrantChart
       UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
 
-
 ### Mindmap
 
 ```mermaid
@@ -342,7 +329,6 @@ mindmap
         B(B)
         C
 ```
-
 
 ### Timeline
 
@@ -359,7 +345,6 @@ timeline
                   : The first metal objects are made in Britain.Some other nice things happen. it is a good time to be alive.
 ```
 
-
 ### XY Chart
 
 ```mermaid
@@ -369,7 +354,6 @@ xychart-beta
     y-axis "Revenue (in $)" 4000 --> 11000
     bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
     line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
-
 ```
 
 
@@ -389,7 +373,6 @@ block-beta
     l m n o p q r
   end
 ```
-
 
 ### Shortcode
 
