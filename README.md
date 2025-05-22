@@ -54,7 +54,7 @@ YOUR DIAGRAM
 {{< /mermaid >}}
 </pre>
 
-The module supports dark mode and allows creation of a custom mermaid theme by overriding and setting the theme variables in `assets/scss/mermaid.scss`. Checkout the [mermaid docs](https://mermaid.js.org/config/theming.html) for custom styling. All theme variables can be used, but in kebab case and with prefix as shown in the example below. Also bootstrap theme variables can be referenced.
+The module supports dark mode and allows creation of a custom mermaid theme by overriding and setting the theme variables in `assets/scss/mermaid.scss`. Checkout the [mermaid docs](https://mermaid.js.org/config/theming.html) for custom styling. All theme variables can be used, but in kebab case and with prefix as shown in the example below. Also Bootstrap theme variables can be referenced.
 
 ```scss
 // assets/scss/mermaid.scss
@@ -83,13 +83,6 @@ The module supports dark mode and allows creation of a custom mermaid theme by o
 ## Contributing
 
 This module uses [semantic-release][semantic-release] to automate the release of new versions. The package uses `husky` and `commitlint` to ensure commit messages adhere to the [Conventional Commits][conventionalcommits] specification. You can run `npx git-cz` from the terminal to help prepare the commit message.
-
-<!-- ## Configuration
-
-This module supports the following parameters (see the section `params.modules` in `config.toml`):
-
-| Setting                   | Default | Description |
-|---------------------------|---------|-------------| -->
 
 <!-- MARKDOWN LINKS -->
 [hugo]: https://gohugo.io
