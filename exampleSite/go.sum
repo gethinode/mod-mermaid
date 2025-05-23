@@ -162,6 +162,8 @@ github.com/gethinode/mod-lottie v1.5.14 h1:17wmpi4XQzmwSB2HKNVa7c6ZzULrRnpKdowOF
 github.com/gethinode/mod-lottie v1.5.14/go.mod h1:VrjjmrwP/NIrLW7oDQyEAHdbeIRQfbr5BKjgKvI9Al4=
 github.com/gethinode/mod-mermaid v1.0.0 h1:fUUIyS0jN0me5FLblRHQtZxD61xn8iPmbcRnB2oaHwI=
 github.com/gethinode/mod-mermaid v1.0.0/go.mod h1:rw6vrY9DpdJblwFwLuXCdy2kBHxMf6gGKWeetwfTSfc=
+github.com/gethinode/mod-mermaid/v2 v2.0.0 h1:okELgbu7SqLFQ/jKEQ8fApBzCc9E0pOuIq9T6v3/Yr8=
+github.com/gethinode/mod-mermaid/v2 v2.0.0/go.mod h1:kp3oUFAjKxuwzFbwxGWPEx5VQOu2ZHzcrwcNhDv08BI=
 github.com/gethinode/mod-simple-datatables v1.0.2 h1:zhqxHet3iLQWYCBbGROALpOY9zQlptMycFkz1Tto5bA=
 github.com/gethinode/mod-simple-datatables v1.0.2/go.mod h1:mmrcvAJU2i3SMU56VmQ5PW43uDXBcsJKcZwCHrvl3Kc=
 github.com/gethinode/mod-simple-datatables v1.0.3 h1:JL2nBlEHWMmkE7EZrpfpmzka47dklJUh23/xKJkOQoI=
