@@ -1,6 +1,6 @@
 {
   "name": "@gethinode/mod-mermaid",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A Hugo module to add diagrams and charts powered by Mermaid to your Hinode site",
   "keywords": [
     "hugo",
