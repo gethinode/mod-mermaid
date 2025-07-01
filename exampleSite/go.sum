@@ -254,6 +254,8 @@ github.com/gethinode/mod-utils/v4 v4.8.0 h1:/+M3EHqA8IzgBWXX1GLmT/xKbk2FVhUwmUfM
 github.com/gethinode/mod-utils/v4 v4.8.0/go.mod h1:bYmvRdAo4ICy5MpSGafDvO4p5bTDpsDKFCPL3bH0mN4=
 github.com/gethinode/mod-utils/v4 v4.8.2 h1:mhPmqdeCar2sOdVwKIyJl5la0RVBPtw4d29ncRKN3ek=
 github.com/gethinode/mod-utils/v4 v4.8.2/go.mod h1:bYmvRdAo4ICy5MpSGafDvO4p5bTDpsDKFCPL3bH0mN4=
+github.com/gethinode/mod-utils/v4 v4.8.4 h1:ExD2zZCGonAmbIxC9wBU2dp+V4ZfvG46NWaz+LaV3iQ=
+github.com/gethinode/mod-utils/v4 v4.8.4/go.mod h1:bYmvRdAo4ICy5MpSGafDvO4p5bTDpsDKFCPL3bH0mN4=
 github.com/nextapps-de/flexsearch v0.0.0-20240501124520-961c3ae84a87 h1:6PNbL0/LxO8Xl8MZSe5uvCidYNpFTz9nlWTqj2qdlzA=
 github.com/nextapps-de/flexsearch v0.0.0-20240501124520-961c3ae84a87/go.mod h1:5GdMfPAXzbA2gXBqTjC6l27kioSYzHlqDMh0+wyx7sU=
 github.com/nextapps-de/flexsearch v0.0.0-20250210141409-f78ebb388862 h1:+kGQ+34t7Bv0mbwTGUxwQU2ruuac8jsHEvcleSRUI3M=
