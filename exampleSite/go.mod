@@ -14,7 +14,7 @@ require (
 	github.com/gethinode/mod-leaflet v1.2.1 // indirect
 	github.com/gethinode/mod-lottie v1.5.14 // indirect
 	github.com/gethinode/mod-mermaid v1.0.0 // indirect
-	github.com/gethinode/mod-mermaid/v2 v2.0.2 // indirect
+	github.com/gethinode/mod-mermaid/v2 v2.0.3 // indirect
 	github.com/gethinode/mod-simple-datatables v1.1.7 // indirect
 	github.com/gethinode/mod-utils/v4 v4.11.1 // indirect
 	github.com/nextapps-de/flexsearch v0.0.0-20250521173815-f12b83ec5c58 // indirect

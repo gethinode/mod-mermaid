@@ -168,6 +168,8 @@ github.com/gethinode/mod-mermaid/v2 v2.0.1 h1:QcahIFCgmYAGsukQ0d+/L4IJtDwgXgv0Wz
 github.com/gethinode/mod-mermaid/v2 v2.0.1/go.mod h1:kp3oUFAjKxuwzFbwxGWPEx5VQOu2ZHzcrwcNhDv08BI=
 github.com/gethinode/mod-mermaid/v2 v2.0.2 h1:uRHS3RyrMBK/hhDbEX39HnYkypSvSeci0kSyQaSdsKU=
 github.com/gethinode/mod-mermaid/v2 v2.0.2/go.mod h1:kp3oUFAjKxuwzFbwxGWPEx5VQOu2ZHzcrwcNhDv08BI=
+github.com/gethinode/mod-mermaid/v2 v2.0.3 h1:vWiAE640GAzkQCj0NFyn1VtnpFwiJ5Bljm2YgoQ3qG4=
+github.com/gethinode/mod-mermaid/v2 v2.0.3/go.mod h1:kp3oUFAjKxuwzFbwxGWPEx5VQOu2ZHzcrwcNhDv08BI=
 github.com/gethinode/mod-simple-datatables v1.0.2 h1:zhqxHet3iLQWYCBbGROALpOY9zQlptMycFkz1Tto5bA=
 github.com/gethinode/mod-simple-datatables v1.0.2/go.mod h1:mmrcvAJU2i3SMU56VmQ5PW43uDXBcsJKcZwCHrvl3Kc=
 github.com/gethinode/mod-simple-datatables v1.0.3 h1:JL2nBlEHWMmkE7EZrpfpmzka47dklJUh23/xKJkOQoI=
