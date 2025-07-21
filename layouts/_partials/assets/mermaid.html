@@ -1,0 +1,45 @@
+{{/* 
+    Copyright © 2025 The Hinode Team / Mark Dumay. All rights reserved.
+    Use of this source code is governed by The MIT License (MIT) that can be found in the LICENSE file.
+    Visit gethinode.com/license for more details.
+*/}}
+
+{{ $error := false }}
+
+{{/* Initialize arguments */}}
+{{- $args := partial "utilities/InitArgs.html" (dict "structure" "mermaid" "args" . "group" "partial") -}}
+{{- if or $args.err $args.warnmsg -}}
+    {{- partial (cond $args.err "utilities/LogErr.html" "utilities/LogWarn.html") (dict 
+        "partial" "assets/mermaid.html" 
+        "warnid"  "warn-invalid-arguments"
+        "msg"     "Invalid arguments"
+        "details" ($args.errmsg | append $args.warnmsg)
+        "file"    page.File
+    ) -}}
+    {{- $error = $args.err -}}
+{{- end -}}
+
+{{/* Main code */}}
+{{ if not $error }}
+    {{ if $args.controls }}
+        <div class="diagram-container">
+            <div class="diagram-controls">
+                <button class="control-btn control-btn-expand">
+                    {{- partial "assets/icon.html" (dict "icon" "fas expand fa-fw fa-xl" "spacing" false) -}}
+                </button>
+                <button class="control-btn control-btn-zoom-out">
+                    {{- partial "assets/icon.html" (dict "icon" "fas magnifying-glass-minus fa-fw fa-xl" "spacing" false) -}}
+                </button>
+                <button class="control-btn control-btn-zoom-in">
+                    {{- partial "assets/icon.html" (dict "icon" "fas magnifying-glass-plus fa-fw fa-xl" "spacing" false) -}}
+                </button>
+            </div>
+
+            <div class="diagram-wrapper">
+                <pre class="mermaid">{{ $args.raw | safeHTML }}</pre>
+            </div>
+        </div>
+     {{ else }}
+        <pre class="mermaid">{{ $args.raw | safeHTML }}</pre>
+     {{ end }}
+{{ end }}

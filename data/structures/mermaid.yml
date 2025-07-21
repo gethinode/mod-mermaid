@@ -1,0 +1,17 @@
+comment: >-
+  Renders a Mermaid diagram with optional controls.
+arguments:
+  page:
+    optional: false
+    group: partial
+  raw:
+    optional: false
+    group: partial
+  controls:
+    release: v1.7.0
+body:
+  optional: false
+  comment: >-
+    Mermaid diagram content.
+  group: shortcode
+  

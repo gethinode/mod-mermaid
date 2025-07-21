@@ -80,6 +80,28 @@ The module supports dark mode and allows creation of a custom mermaid theme by o
 }
 ```
 
+## Configuration
+
+This module supports the following parameters (see the section `params.modules` in `config.toml`):
+
+| Setting        | Default   | Description |
+|----------------|-----------|-------------|
+| mermaid.elk    | false     | If set, installs the layout engine for Mermaid based on the ELK layout engine. |
+| mermaid.layout | `dagre`   | Defines which layout algorithm to use for rendering Mermaid diagrams. The default algorithm is `dagre`. Additional options are available when `mermaid.elk` is enabled, see the table below. |
+| mermaid.look   | `classic` | Defines the default look for Mermaid diagrams, either `classic` or `handDrawn`. |
+
+The following table defines the available layout algorithms. The `elk` values require installation of the ELK layout engine (set `mermaid.elk` to `true`).
+
+| Layout           | Description |
+|------------------|-------------|
+| dagre            | The default Mermaid layout. |
+| elk              | The default ELK layout, which is `elk.layered`. |
+| elk.layered      | Layered layout. |
+| elk.stress       | Stress layout. |
+| elk.force        | Force layout. |
+| elk.mrtree       | Multi-root tree layout. |
+| elk.sporeOverlap | Spore overlap layout. |
+
 ## Contributing
 
 This module uses [semantic-release][semantic-release] to automate the release of new versions. The package uses `husky` and `commitlint` to ensure commit messages adhere to the [Conventional Commits][conventionalcommits] specification. You can run `npx git-cz` from the terminal to help prepare the commit message.

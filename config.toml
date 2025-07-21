@@ -7,14 +7,35 @@
     source = "dist/mermaid.js"
     target = "assets/js/modules/mermaid/mermaid.js"
   [[module.mounts]]
+    source = "dist/layout-elk"
+    target = "static/js/mermaid-layout-elk"
+  [[module.mounts]]
     source = 'assets'
     target = 'assets'
+  [[module.mounts]]
+    source = 'data'
+    target = 'data'
   [[module.mounts]]
     source = 'layouts'
     target = 'layouts'
   [[module.mounts]]
     source = 'static'
     target = 'static'
+  [[module.imports]]
+    path = "github.com/gethinode/mod-fontawesome/v2"
+  [[module.imports]]
+    path = "github.com/gethinode/mod-utils/v4"
 
 [params.modules.mermaid]
   integration = "optional"
+  elk = false
+  layout = "dagre"
+  look = "classic"
+
+[params.modules.mermaid.csp]
+  img-src = [
+    'data:'
+  ]
+  style-src = [
+    "'unsafe-inline'"
+  ]

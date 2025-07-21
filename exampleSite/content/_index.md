@@ -7,9 +7,9 @@ modules: ["mermaid"]
 
 ## Mermaid example
 
-### Flowchart
+### Flowchart (with controls)
 
-```mermaid
+```mermaid {controls=true}
 flowchart TD
     A[Start] --> B{Is it?}
     B -->|Yes| C[OK]
@@ -374,9 +374,16 @@ block-beta
   end
 ```
 
-### Shortcode
+### Shortcode (with controls and frontmatter)
 
-{{< mermaid >}}
-flowchart LR
+{{< mermaid controls=true >}}
+---
+config:
+  layout: elk.stress
+  look: handDrawn
+  theme: forest
+---
+flowchart TD
   A --> B
+  A --> C
 {{< /mermaid >}}

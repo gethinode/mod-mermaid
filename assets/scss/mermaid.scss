@@ -4,6 +4,35 @@
  * The values only are taken over if --mermaid-theme: 'base' is set.
  */
 
+.diagram-container {
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+}
+
+.diagram-container.grabbing {
+    cursor: grabbing;
+}
+
+.diagram-controls {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+}
+
+.diagram-controls ~ .diagram-wrapper {
+    margin-top: 40px;
+}
+
+.diagram-wrapper {
+    z-index: auto;
+}
+
+.diagram-wrapper > pre > svg {
+    display: block;
+    margin: auto;    
+}
+
 [data-mermaid-theme="light"]{
 
     // The Mermaid Theme (only 'base' does support custom theming)

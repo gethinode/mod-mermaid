@@ -1,0 +1,17 @@
+{{- $page := .page -}}
+{{- $match := .match | default "js/**.js" -}}
+{{- $filename := .filename | default "js/main.bundle.js" -}}
+{{- $template := .template | default false -}}
+{{- $type := .type -}}
+
+{{- warnf "Processing js pattern: %s" $match -}}
+{{ $files := sort (resources.Match $match) "Key" "asc" }}
+{{- range $index, $file := $files -}}
+    {{- warnf " - Processing file: %s" $file.Key }}
+{{- end -}}
+
+{{ if gt (len $files) 0 }}
+    {{ $js := $files | resources.Concat $filename -}}
+    {{ if $template }}{{ $js = $js | resources.ExecuteAsTemplate $filename $page -}}{{ end -}}
+    <script src="{{ $js.Permalink }}"{{ with $type }} type={{ . }} {{ end }}></script>
+{{- end -}}
