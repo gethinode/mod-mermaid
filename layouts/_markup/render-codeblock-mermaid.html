@@ -1,4 +1,1 @@
-{{ .Page.Store.Set "hasMermaid" true -}}
-<pre class="mermaid">
-    {{- .Inner | safeHTML -}}
-</pre>
+{{ partial "assets/mermaid.html" (dict "page" .Page "raw" .Inner "controls" .Attributes.controls) }}

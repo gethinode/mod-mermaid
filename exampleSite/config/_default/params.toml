@@ -1,17 +1,11 @@
 [modules]
-    core = ["bootstrap", "fontawesome"]
     optional = ["mermaid"]
-    excludeSCSS = ["bootstrap"]
-    disableTemplate = ["katex","mermaid"]
+    disableTemplate = ["mermaid"]
     [modules.mermaid]
         state = "defer"
-    [modules.fontawesome]
-        inline = true
-        debug = true
-        skipMissing = false
-    [modules.utils]
-        filter = "[^0-9A-Za-zŽžÀ-ÿ ;.,\\/'’\"]-"
-        raw = false   
+        elk = true
+        layout = "elk"
+        look = "classic"
 
 [debugging]
     showJS = true

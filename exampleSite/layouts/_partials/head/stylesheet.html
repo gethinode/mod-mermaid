@@ -1,0 +1,13 @@
+{{- $sources := dict "mermaid" "scss/mermaid.scss" "fontaweseome" "scss/fontawesome.scss" -}}
+
+{{ range $k, $v := $sources }}
+    {{- $target := printf "css/%s.css" $k -}}
+
+    {{- $options := (dict "transpiler" "libsass" "targetPath" $target) -}}
+    {{- $options = merge $options (dict "outputStyle" "expanded") -}}
+
+    {{- $css := resources.GetMatch $v | resources.ExecuteAsTemplate "style.app.scss" . | toCSS $options -}}
+    {{- $css = $css | minify | fingerprint | resources.PostProcess -}}
+    <link rel="stylesheet" href="{{ $css.Permalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+{{ end }}
+

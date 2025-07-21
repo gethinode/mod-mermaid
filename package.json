@@ -21,8 +21,10 @@
     "mod:update": "rimraf _vendor && hugo mod get -u ./... && hugo mod get -u && npm run -s mod:vendor && npm run -s mod:tidy",
     "mod:tidy": "hugo mod tidy",
     "mod:vendor": "rimraf _vendor && hugo mod vendor",
-    "postinstall": "npm run -s copy:js",
-    "copy:js": "cpy \"node_modules/mermaid/dist/mermaid.js\" dist --flat",
+    "postinstall": "npm-run-all copy:**",
+    "copy:js1": "cpy node_modules/mermaid/dist/mermaid.js dist --flat",
+    "copy:js2": "cpy node_modules/@mermaid-js/layout-elk/dist/mermaid-layout-elk.esm.min.mjs dist/layout-elk --flat",
+    "copy:js3": "cpy node_modules/@mermaid-js/layout-elk/dist/chunks/mermaid-layout-elk.esm.min/ dist/layout-elk/chunks/mermaid-layout-elk.esm.min/ --flat",
     "test": "npm run -s build",
     "upgrade": "npx npm-check-updates -u && npm run -s mod:update",
     "prepare": "node .husky/install.mjs"
@@ -40,6 +42,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@mermaid-js/layout-elk": "^0.1.8",
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
     "commitizen": "^4.3.1",
@@ -48,6 +51,7 @@
     "hugo-bin": "^0.145.1",
     "husky": "^9.1.7",
     "mermaid": "^11.9.0",
+    "npm-run-all": "^4.1.5",
     "rimraf": "^6.0.1",
     "semantic-release": "^24.2.7"
   },
