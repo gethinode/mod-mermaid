@@ -25,17 +25,3 @@
     path = "github.com/gethinode/mod-fontawesome/v2"
   [[module.imports]]
     path = "github.com/gethinode/mod-utils/v4"
-
-[params.modules.mermaid]
-  integration = "optional"
-  elk = false
-  layout = "dagre"
-  look = "classic"
-
-[params.modules.mermaid.csp]
-  img-src = [
-    'data:'
-  ]
-  style-src = [
-    "'unsafe-inline'"
-  ]

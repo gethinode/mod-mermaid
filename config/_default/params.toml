@@ -6,3 +6,13 @@
         integration = "optional"
         disableTemplate = true
         state = "defer"
+        elk = false
+        layout = "dagre"
+        look = "classic"
+    [modules.mermaid.csp]
+        img-src = [
+            'data:'
+        ]
+        style-src = [
+            "'unsafe-inline'"
+        ]
