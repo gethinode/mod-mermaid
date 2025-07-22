@@ -5,6 +5,7 @@
     [modules.mermaid]
         integration = "optional"
         disableTemplate = true
+        enableTemplate = "**/*.mjs"
         state = "defer"
         elk = false
         layout = "dagre"
