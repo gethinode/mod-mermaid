@@ -4,5 +4,5 @@ go 1.19
 
 require (
 	github.com/gethinode/mod-fontawesome/v2 v2.1.3 // indirect
-	github.com/gethinode/mod-utils/v4 v4.18.0 // indirect
+	github.com/gethinode/mod-utils/v4 v4.19.0 // indirect
 )
