@@ -24,3 +24,5 @@ github.com/gethinode/mod-utils/v4 v4.19.0 h1:zTKbfhcFDrEsrQI09zyI7JKQTmAQuuB9OGy
 github.com/gethinode/mod-utils/v4 v4.19.0/go.mod h1:bYmvRdAo4ICy5MpSGafDvO4p5bTDpsDKFCPL3bH0mN4=
 github.com/gethinode/mod-utils/v4 v4.20.0 h1:hGhx0qOzrIvOYrn8ozgo1X9tO/I2F8S2+6yyXK4Oj4c=
 github.com/gethinode/mod-utils/v4 v4.20.0/go.mod h1:bYmvRdAo4ICy5MpSGafDvO4p5bTDpsDKFCPL3bH0mN4=
+github.com/gethinode/mod-utils/v4 v4.21.1 h1:+YAAwD3yiVBO2ozajKgbxh4IKYhBJUHhKyIfBMz7x5A=
+github.com/gethinode/mod-utils/v4 v4.21.1/go.mod h1:bYmvRdAo4ICy5MpSGafDvO4p5bTDpsDKFCPL3bH0mN4=
