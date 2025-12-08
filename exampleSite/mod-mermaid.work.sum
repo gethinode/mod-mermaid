@@ -1,6 +1,3 @@
-github.com/gethinode/mod-mermaid/v2 v2.0.3 h1:vWiAE640GAzkQCj0NFyn1VtnpFwiJ5Bljm2YgoQ3qG4=
-github.com/gethinode/mod-mermaid/v2 v2.0.3/go.mod h1:kp3oUFAjKxuwzFbwxGWPEx5VQOu2ZHzcrwcNhDv08BI=
-github.com/gethinode/mod-utils/v4 v4.12.0 h1:5sSfYIxZCeQbXLoZdS//rl6thwLwtXuvM0ujaWKyPmc=
-github.com/gethinode/mod-utils/v4 v4.12.0/go.mod h1:bYmvRdAo4ICy5MpSGafDvO4p5bTDpsDKFCPL3bH0mN4=
+github.com/gethinode/mod-fontawesome/v3 v3.0.0 h1:mNV8ZveQ5aXEU+jmKrWaoIbq5xB2p4OYDnHSyKGDD6c=
+github.com/gethinode/mod-fontawesome/v3 v3.0.0/go.mod h1:KX8eLJCH7L27KCUCr4S5k1NOQC6O41D4G6DWOzNmeJ8=
 github.com/nextapps-de/flexsearch v0.0.0-20250330195737-40f17691bf67 h1:uK+tMheTLJSGwP9tFUyf09vMGoSLnqNtbRjYNBO/wbU=
-github.com/nextapps-de/flexsearch v0.0.0-20250330195737-40f17691bf67/go.mod h1:5GdMfPAXzbA2gXBqTjC6l27kioSYzHlqDMh0+wyx7sU=
