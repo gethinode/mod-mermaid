@@ -25,3 +25,9 @@
     path = "github.com/gethinode/mod-fontawesome/v3"
   [[module.imports]]
     path = "github.com/gethinode/mod-utils/v5"
+
+# Icon defaults for mod-mermaid components
+[params.icons]
+  diagramExpand   = "fas expand"
+  diagramZoomOut  = "fas magnifying-glass-minus"
+  diagramZoomIn   = "fas magnifying-glass-plus"
