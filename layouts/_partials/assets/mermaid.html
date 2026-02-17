@@ -19,19 +19,23 @@
     {{- $error = $args.err -}}
 {{- end -}}
 
+{{- $diagramExpand  := site.Params.icons.diagramExpand  | default "fas expand" -}}
+{{- $diagramZoomOut := site.Params.icons.diagramZoomOut | default "fas magnifying-glass-minus" -}}
+{{- $diagramZoomIn  := site.Params.icons.diagramZoomIn  | default "fas magnifying-glass-plus" -}}
+
 {{/* Main code */}}
 {{ if not $error }}
     {{ if $args.controls }}
         <div class="diagram-container">
             <div class="diagram-controls">
                 <button class="control-btn control-btn-expand">
-                    {{- partial "assets/icon.html" (dict "icon" "fas expand fa-fw fa-xl" "spacing" false) -}}
+                    {{- partial "assets/icon.html" (dict "icon" (printf "%s fa-fw fa-xl" $diagramExpand) "spacing" false) -}}
                 </button>
                 <button class="control-btn control-btn-zoom-out">
-                    {{- partial "assets/icon.html" (dict "icon" "fas magnifying-glass-minus fa-fw fa-xl" "spacing" false) -}}
+                    {{- partial "assets/icon.html" (dict "icon" (printf "%s fa-fw fa-xl" $diagramZoomOut) "spacing" false) -}}
                 </button>
                 <button class="control-btn control-btn-zoom-in">
-                    {{- partial "assets/icon.html" (dict "icon" "fas magnifying-glass-plus fa-fw fa-xl" "spacing" false) -}}
+                    {{- partial "assets/icon.html" (dict "icon" (printf "%s fa-fw fa-xl" $diagramZoomIn) "spacing" false) -}}
                 </button>
             </div>
 
