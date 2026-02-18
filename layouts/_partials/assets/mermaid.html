@@ -29,13 +29,13 @@
         <div class="diagram-container">
             <div class="diagram-controls">
                 <button class="control-btn control-btn-expand">
-                    {{- partial "assets/icon.html" (dict "icon" (printf "%s fa-fw fa-xl" $diagramExpand) "spacing" false) -}}
+                    {{- partial "assets/icon.html" (dict "icon" $diagramExpand "class" "fa-fw fa-xl" "spacing" false) -}}
                 </button>
                 <button class="control-btn control-btn-zoom-out">
-                    {{- partial "assets/icon.html" (dict "icon" (printf "%s fa-fw fa-xl" $diagramZoomOut) "spacing" false) -}}
+                    {{- partial "assets/icon.html" (dict "icon" $diagramZoomOut "class" "fa-fw fa-xl" "spacing" false) -}}
                 </button>
                 <button class="control-btn control-btn-zoom-in">
-                    {{- partial "assets/icon.html" (dict "icon" (printf "%s fa-fw fa-xl" $diagramZoomIn) "spacing" false) -}}
+                    {{- partial "assets/icon.html" (dict "icon" $diagramZoomIn "class" "fa-fw fa-xl" "spacing" false) -}}
                 </button>
             </div>
 
