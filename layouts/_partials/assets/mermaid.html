@@ -19,9 +19,9 @@
     {{- $error = $args.err -}}
 {{- end -}}
 
-{{- $diagramExpand  := site.Params.icons.diagramExpand  | default "fas expand" -}}
-{{- $diagramZoomOut := site.Params.icons.diagramZoomOut | default "fas magnifying-glass-minus" -}}
-{{- $diagramZoomIn  := site.Params.icons.diagramZoomIn  | default "fas magnifying-glass-plus" -}}
+{{- $diagramExpand := partial "utilities/GetThemeIcon.html" (dict "id" "diagramExpand" "default" "fas expand") -}}
+{{- $diagramZoomOut := partial "utilities/GetThemeIcon.html" (dict "id" "diagramZoomOut" "default" "fas magnifying-glass-minus") -}}
+{{- $diagramZoomIn := partial "utilities/GetThemeIcon.html" (dict "id" "diagramZoomIn" "default" "fas magnifying-glass-plus") -}}
 
 {{/* Main code */}}
 {{ if not $error }}
