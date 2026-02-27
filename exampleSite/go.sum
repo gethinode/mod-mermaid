@@ -124,6 +124,8 @@ github.com/gethinode/mod-fontawesome/v5 v5.0.4 h1:eaGu7hGQfPReAIHF3RolOhXb+JT8y2
 github.com/gethinode/mod-fontawesome/v5 v5.0.4/go.mod h1:iLRUmdb788apYTXA4LmVyeBkTKPPyiMX41poFQbYiVU=
 github.com/gethinode/mod-fontawesome/v5 v5.0.5 h1:XRUZn3pHp7Bzz+Y7IQTRsdJYAhiClygrYOoOBkyBtT4=
 github.com/gethinode/mod-fontawesome/v5 v5.0.5/go.mod h1:iLRUmdb788apYTXA4LmVyeBkTKPPyiMX41poFQbYiVU=
+github.com/gethinode/mod-fontawesome/v5 v5.0.6 h1:x4R64RkVQbs7AYoOG3dMWo5NXPvSa8K6a0RCk+oC16A=
+github.com/gethinode/mod-fontawesome/v5 v5.0.6/go.mod h1:x0tyq3/ylTACO7maMAvbvjIhvShI81Ejpt88+RN7BiQ=
 github.com/gethinode/mod-google-analytics v1.1.4 h1:GkLzbSdVIMLWSQ4VOSaJZIKyofmVCzueiuiGc29jQOM=
 github.com/gethinode/mod-google-analytics v1.1.4/go.mod h1:dl628cFozpCvoIMCiV7ujzQipjxcm3eatXrSfLPWNII=
 github.com/gethinode/mod-google-analytics v1.1.5 h1:wlOcgwNEJAnIQmPJIo3cT06xnr1dxN/ydUIztoC/7rM=
