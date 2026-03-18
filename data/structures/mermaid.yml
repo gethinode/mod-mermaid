@@ -1,3 +1,11 @@
+icon: schema
+example: |
+  {{< mermaid >}}
+  graph TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Action]
+    B -->|No| D[End]
+  {{< /mermaid >}}
 comment: >-
   Renders a Mermaid diagram with optional controls.
 arguments:
