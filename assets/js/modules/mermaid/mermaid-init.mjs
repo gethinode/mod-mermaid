@@ -23,6 +23,7 @@ import elkLayouts from '/js/mermaid-layout-elk/mermaid-layout-elk.esm.min.mjs';
             try {
                 var els = document.querySelectorAll(elementCode),
                     count = els.length;
+                if (count === 0) { resolve(); return; }
                 els.forEach(element => {
                     func(element)
                     count--
@@ -31,7 +32,7 @@ import elkLayouts from '/js/mermaid-layout-elk/mermaid-layout-elk.esm.min.mjs';
                     }
                 });
             } catch (error) {
-                reject(error) 
+                reject(error)
             }
         })
     }
@@ -151,7 +152,13 @@ import elkLayouts from '/js/mermaid-layout-elk/mermaid-layout-elk.esm.min.mjs';
             look: '{{ site.Params.modules.mermaid.look | default "classic" }}',
         }
         mermaid.initialize(params)
-        mermaid.run({ nodes: document.querySelectorAll(elementCode) })
+        // Re-run any static .mermaid elements still in the DOM (e.g. non-HTMX pages).
+        // HTMX pages dispatch 'mermaid:initialized' so their own renderer can re-inject.
+        const staticNodes = document.querySelectorAll(elementCode)
+        if (staticNodes.length) {
+            mermaid.run({ nodes: staticNodes })
+        }
+        document.dispatchEvent(new CustomEvent('mermaid:initialized', { detail: { dark } }))
     }
 
     const updateTheme = (theme) => {
@@ -167,17 +174,14 @@ import elkLayouts from '/js/mermaid-layout-elk/mermaid-layout-elk.esm.min.mjs';
         .catch(console.error)
     }
 
-    // theme selection has changed (one of 'auto', 'light', 'dark')
-    document.querySelectorAll('[data-bs-theme-value]').forEach(toggle => {
-        toggle.addEventListener('click', () => {
-            const theme = toggle.getAttribute('data-bs-theme-value')
-            updateTheme(theme === 'auto' ? getPreferedTheme() : theme)
-        })
-    })
+    // Bootstrap data-bs-theme attribute changed — covers all toggle sources
+    new MutationObserver(() => {
+        const theme = document.documentElement.getAttribute('data-bs-theme') || 'light'
+        updateTheme(theme === 'auto' ? getPreferedTheme() : theme)
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-bs-theme'] })
 
-    // prefered theme has changed globally ('light' or 'dark)
+    // OS-level preference changed while Bootstrap theme is set to 'auto'
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        // only relevant, if theme is set to 'auto'
         if (document.documentElement.getAttribute('data-bs-theme') === 'auto') {
             updateTheme(getPreferedTheme())
         }
@@ -198,11 +202,12 @@ import elkLayouts from '/js/mermaid-layout-elk/mermaid-layout-elk.esm.min.mjs';
 
     document.addEventListener("DOMContentLoaded", () => {
         createPseudoStyledElements()
+        const bsTheme = document.documentElement.getAttribute('data-bs-theme')
         forEachDiagram(element => {
             element.setAttribute('data-original-code', element.innerHTML)
         })
         .catch( console.error)
-        updateTheme(document.documentElement.getAttribute('data-bs-theme'))
+        updateTheme(bsTheme)
     });
 
     document.body.addEventListener('htmx:afterSwap', (e) => {
