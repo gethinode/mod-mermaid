@@ -205,6 +205,16 @@ import elkLayouts from '/js/mermaid-layout-elk/mermaid-layout-elk.esm.min.mjs';
         updateTheme(document.documentElement.getAttribute('data-bs-theme'))
     });
 
+    document.body.addEventListener('htmx:afterSwap', (e) => {
+        const target = e.detail.target || e.target
+        const nodes = target.querySelectorAll(elementCode)
+        if (nodes.length === 0) return
+        nodes.forEach(element => {
+            element.setAttribute('data-original-code', element.innerHTML)
+        })
+        mermaid.run({ nodes })
+    })
+
     {{ if site.Params.modules.mermaid.elk -}}
     mermaid.registerLayoutLoaders(elkLayouts);
     {{- end }}

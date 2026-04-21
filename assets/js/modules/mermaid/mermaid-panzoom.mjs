@@ -168,15 +168,18 @@ function handleTouchend(wrapper, e) {
     wrapper.parentElement.classList.remove('grabbing')
 }
 
-document.querySelectorAll('.diagram-wrapper').forEach(wrapper => {
+function initWrapper(wrapper) {
+    if (wrapper.dataset.panzoomInit) return
+    wrapper.dataset.panzoomInit = 'true'
+
     const container = wrapper.parentElement
     const btnExpand = container.querySelector('.control-btn-expand')
     const btnZoomOut = container.querySelector('.control-btn-zoom-out')
     const btnZoomIn = container.querySelector('.control-btn-zoom-in')
 
-    btnExpand.addEventListener('click', () => { expand(wrapper) })
-    btnZoomOut.addEventListener('click', () => { zoomOut(wrapper) })
-    btnZoomIn.addEventListener('click', () => { zoomIn(wrapper) })
+    if (btnExpand) btnExpand.addEventListener('click', () => { expand(wrapper) })
+    if (btnZoomOut) btnZoomOut.addEventListener('click', () => { zoomOut(wrapper) })
+    if (btnZoomIn) btnZoomIn.addEventListener('click', () => { zoomIn(wrapper) })
 
     container.addEventListener('mousedown', (e) => { handleMousedown(wrapper, e) })
     container.addEventListener('mousemove', (e) => { handleMousemove(wrapper, e) })
@@ -184,5 +187,19 @@ document.querySelectorAll('.diagram-wrapper').forEach(wrapper => {
     container.addEventListener('touchstart', (e) => { handleTouchstart(wrapper, e) })
     container.addEventListener('touchmove', (e) => { handleTouchmove(wrapper, e) })
     container.addEventListener('touchend', (e) => { handleTouchend(wrapper, e) })
-    container.addEventListener('wheel', (e) => { handleWheel(wrapper, e) })    
-})
+    container.addEventListener('wheel', (e) => { handleWheel(wrapper, e) })
+}
+
+document.querySelectorAll('.diagram-wrapper').forEach(wrapper => initWrapper(wrapper))
+
+new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+            if (node.nodeType !== Node.ELEMENT_NODE) return
+            if (node.classList.contains('diagram-wrapper')) {
+                initWrapper(node)
+            }
+            node.querySelectorAll('.diagram-wrapper').forEach(wrapper => initWrapper(wrapper))
+        })
+    })
+}).observe(document.body, { childList: true, subtree: true })
