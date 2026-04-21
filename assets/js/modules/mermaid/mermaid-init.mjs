@@ -3,12 +3,15 @@
  * https://github.com/mermaid-js/mermaid/issues/1945#issuecomment-1661264708
  */
 
+import mermaid from '/js/mermaid/mermaid.esm.min.mjs';
+
 {{ if site.Params.modules.mermaid.elk -}}
 import elkLayouts from '/js/mermaid-layout-elk/mermaid-layout-elk.esm.min.mjs';
 {{- end }}
 
 (function(window){
     'use strict'
+    window.mermaid = mermaid
     const elementCode = '.mermaid'
 
     const getPreferedTheme = () => {
@@ -143,12 +146,12 @@ import elkLayouts from '/js/mermaid-layout-elk/mermaid-layout-elk.esm.min.mjs';
         const params = {
             'theme': mermaidTheme,
             'themeVariables': mermaidStyle,
-            startOnLoad: true,
+            startOnLoad: false,
             layout: '{{ site.Params.modules.mermaid.layout | default "dagre" }}',
             look: '{{ site.Params.modules.mermaid.look | default "classic" }}',
         }
-        window.mermaid.initialize(params)
-        window.mermaid.init(params, document.querySelectorAll(elementCode))
+        mermaid.initialize(params)
+        mermaid.run({ nodes: document.querySelectorAll(elementCode) })
     }
 
     const updateTheme = (theme) => {

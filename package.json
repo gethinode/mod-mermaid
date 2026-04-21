@@ -22,9 +22,10 @@
     "mod:tidy": "hugo mod tidy",
     "mod:vendor": "rimraf _vendor && hugo mod vendor",
     "postinstall": "npm-run-all copy:**",
-    "copy:js1": "cpy node_modules/mermaid/dist/mermaid.js dist --flat",
-    "copy:js2": "cpy node_modules/@mermaid-js/layout-elk/dist/mermaid-layout-elk.esm.min.mjs dist/layout-elk --flat",
-    "copy:js3": "cpy node_modules/@mermaid-js/layout-elk/dist/chunks/mermaid-layout-elk.esm.min/ dist/layout-elk/chunks/mermaid-layout-elk.esm.min/ --flat",
+    "copy:js1": "cpy node_modules/mermaid/dist/mermaid.esm.min.mjs dist --flat",
+    "copy:js2": "cpy \"node_modules/mermaid/dist/chunks/mermaid.esm.min/*.mjs\" \"dist/chunks/mermaid.esm.min/\" --flat",
+    "copy:js3": "cpy node_modules/@mermaid-js/layout-elk/dist/mermaid-layout-elk.esm.min.mjs dist/layout-elk --flat",
+    "copy:js4": "cpy \"node_modules/@mermaid-js/layout-elk/dist/chunks/mermaid-layout-elk.esm.min/\" \"dist/layout-elk/chunks/mermaid-layout-elk.esm.min/\"",
     "test": "npm run -s build",
     "upgrade": "npx npm-check-updates -u && npm run -s mod:update",
     "prepare": "node .husky/install.mjs"
