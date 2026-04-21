@@ -4,6 +4,10 @@
  * The values only are taken over if --mermaid-theme: 'base' is set.
  */
 
+pre.mermaid:not([data-processed]) {
+    visibility: hidden;
+}
+
 .diagram-container {
     position: relative;
     overflow: hidden;

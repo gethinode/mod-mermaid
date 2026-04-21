@@ -4,8 +4,11 @@
     min = "0.146.0"
     max = ""
   [[module.mounts]]
-    source = "dist/mermaid.js"
-    target = "assets/js/modules/mermaid/mermaid.js"
+    source = "dist/mermaid.esm.min.mjs"
+    target = "static/js/mermaid/mermaid.esm.min.mjs"
+  [[module.mounts]]
+    source = "dist/chunks/mermaid.esm.min"
+    target = "static/js/mermaid/chunks/mermaid.esm.min"
   [[module.mounts]]
     source = "dist/layout-elk"
     target = "static/js/mermaid-layout-elk"
