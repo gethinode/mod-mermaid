@@ -34,7 +34,27 @@ pre.mermaid:not([data-processed]) {
 
 .diagram-wrapper > pre > svg {
     display: block;
-    margin: auto;    
+    margin: auto;
+}
+
+/* Horizontal alignment of the diagram (shortcode `align` argument). Only
+ * `center` and `end` emit a modifier class; `start` keeps the default flow. */
+.mermaid-align-center > svg,
+.mermaid-align-end > svg,
+.mermaid-align-center .diagram-wrapper > pre > svg,
+.mermaid-align-end .diagram-wrapper > pre > svg {
+    display: block;
+}
+
+.mermaid-align-center > svg,
+.mermaid-align-center .diagram-wrapper > pre > svg {
+    margin-inline: auto;
+}
+
+.mermaid-align-end > svg,
+.mermaid-align-end .diagram-wrapper > pre > svg {
+    margin-inline-start: auto;
+    margin-inline-end: 0;
 }
 
 [data-mermaid-theme="light"]{
