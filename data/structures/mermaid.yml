@@ -21,7 +21,7 @@ arguments:
     comment: >-
       Horizontal alignment of the rendered diagram. Only `center` and `end`
       shift the diagram; `start` keeps the diagram's default flow.
-    release: v4.5.0
+    release: v2.12.0
 body:
   optional: false
   comment: >-
