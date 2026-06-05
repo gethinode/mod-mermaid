@@ -23,10 +23,16 @@
 {{- $diagramZoomOut := partial "utilities/GetThemeIcon.html" (dict "id" "diagramZoomOut" "default" "fas magnifying-glass-minus") -}}
 {{- $diagramZoomIn := partial "utilities/GetThemeIcon.html" (dict "id" "diagramZoomIn" "default" "fas magnifying-glass-plus") -}}
 
+{{/* Optional alignment modifier (center/end only; start keeps the default flow) */}}
+{{- $alignClass := "" -}}
+{{- if in (slice "center" "end") $args.align -}}
+    {{- $alignClass = printf " mermaid-align-%s" $args.align -}}
+{{- end -}}
+
 {{/* Main code */}}
 {{ if not $error }}
     {{ if $args.controls }}
-        <div class="diagram-container">
+        <div class="diagram-container{{ $alignClass }}">
             <div class="diagram-controls">
                 <button class="control-btn control-btn-expand">
                     {{- partial "assets/icon.html" (dict "icon" $diagramExpand "class" "fa-fw fa-xl" "spacing" false) -}}
@@ -44,6 +50,6 @@
             </div>
         </div>
      {{ else }}
-        <pre class="mermaid">{{ $args.raw | safeHTML }}</pre>
+        <pre class="mermaid{{ $alignClass }}">{{ $args.raw | safeHTML }}</pre>
      {{ end }}
 {{ end }}

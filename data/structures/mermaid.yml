@@ -17,6 +17,11 @@ arguments:
     group: partial
   controls:
     release: v1.7.0
+  align:
+    comment: >-
+      Horizontal alignment of the rendered diagram. Only `center` and `end`
+      shift the diagram; `start` keeps the diagram's default flow.
+    release: v4.5.0
 body:
   optional: false
   comment: >-
