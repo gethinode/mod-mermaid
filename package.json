@@ -41,7 +41,7 @@
   },
   "homepage": "https://gethinode.com",
   "devDependencies": {
-    "@commitlint/cli": "^21.0.2",
+    "@commitlint/cli": "^21.1.0",
     "@commitlint/config-conventional": "^21.1.0",
     "@mermaid-js/layout-elk": "^0.2.1",
     "@semantic-release/exec": "^7.1.0",
