@@ -43,7 +43,7 @@
   "devDependencies": {
     "@commitlint/cli": "^21.1.0",
     "@commitlint/config-conventional": "^21.1.0",
-    "@mermaid-js/layout-elk": "^0.2.1",
+    "@mermaid-js/layout-elk": "^0.2.2",
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
     "commitizen": "^4.3.2",
