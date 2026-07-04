@@ -18,6 +18,12 @@ arguments:
   controls:
     release: v1.7.0
   fullscreen:
+    type: bool
+    default: false
+    optional: true
+    comment: >-
+      Flag indicating if the diagram should include a fullscreen control that
+      opens it in the lightbox overlay.
     release: v4.6.0
   align:
     comment: >-
