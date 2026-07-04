@@ -24,7 +24,7 @@ arguments:
     comment: >-
       Flag indicating if the diagram should include a fullscreen control that
       opens it in the lightbox overlay.
-    release: v4.6.0
+    release: v4.7.0
   align:
     comment: >-
       Horizontal alignment of the rendered diagram. Only `center` and `end`
