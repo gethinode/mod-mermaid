@@ -24,6 +24,22 @@ pre.mermaid:not([data-processed]) {
     right: 0;
 }
 
+.control-btn {
+    padding: 0.25rem 0.4rem;
+    line-height: 1;
+    color: var(--bs-body-color);
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    appearance: none;
+    opacity: 0.65;
+}
+
+.control-btn:hover,
+.control-btn:focus-visible {
+    opacity: 1;
+}
+
 .diagram-controls ~ .diagram-wrapper {
     margin-top: 40px;
 }
