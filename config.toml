@@ -19,6 +19,9 @@
     source = 'data'
     target = 'data'
   [[module.mounts]]
+    source = 'i18n'
+    target = 'i18n'
+  [[module.mounts]]
     source = 'layouts'
     target = 'layouts'
   [[module.mounts]]
@@ -31,6 +34,7 @@
 
 # Icon defaults for mod-mermaid components
 [params.icons]
-  diagramExpand   = "fas expand"
-  diagramZoomOut  = "fas magnifying-glass-minus"
-  diagramZoomIn   = "fas magnifying-glass-plus"
+  diagramExpand     = "fas arrows-to-dot"
+  diagramFullscreen = "fas expand"
+  diagramZoomOut    = "fas magnifying-glass-minus"
+  diagramZoomIn     = "fas magnifying-glass-plus"
