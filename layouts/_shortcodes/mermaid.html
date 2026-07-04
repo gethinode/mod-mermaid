@@ -22,5 +22,5 @@
 
 {{/* Main code */}}
 {{ if not $error }}
-    {{ partial "assets/mermaid.html" (dict "page" .Page "raw" .Inner "controls" $args.controls "align" $args.align) }}
+    {{ partial "assets/mermaid.html" (dict "page" .Page "raw" .Inner "controls" $args.controls "align" $args.align "fullscreen" $args.fullscreen) }}
 {{ end }}

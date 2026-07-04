@@ -17,6 +17,8 @@ arguments:
     group: partial
   controls:
     release: v1.7.0
+  fullscreen:
+    release: v4.6.0
   align:
     comment: >-
       Horizontal alignment of the rendered diagram. Only `center` and `end`

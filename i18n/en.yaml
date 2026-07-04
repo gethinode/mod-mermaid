@@ -1,0 +1,8 @@
+- id: diagramFullscreen
+  translation: "View fullscreen"
+- id: diagramExpand
+  translation: "Reset view"
+- id: diagramZoomOut
+  translation: "Zoom out"
+- id: diagramZoomIn
+  translation: "Zoom in"
