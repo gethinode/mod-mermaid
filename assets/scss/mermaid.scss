@@ -22,6 +22,18 @@ pre.mermaid:not([data-processed]) {
     position: absolute;
     z-index: 1;
     right: 0;
+
+    // Frosted background so the icon-only controls stay legible when they
+    // overlay diagram content, mirroring Hinode's translucent navbar
+    // (semi-transparent body background + backdrop blur). Applies inline and
+    // in the fullscreen dialog.
+    background-color: rgba(var(--bs-body-bg-rgb), 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    // This module's SCSS compiles standalone (no theme variables in scope),
+    // so consume the theme radius via Hinode's --theme-border-radius custom
+    // property, falling back to Bootstrap's radius when used outside Hinode.
+    border-radius: var(--theme-border-radius, var(--bs-border-radius));
 }
 
 .control-btn {
