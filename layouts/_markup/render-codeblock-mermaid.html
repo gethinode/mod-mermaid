@@ -1,1 +1,12 @@
-{{ partial "assets/mermaid.html" (dict "page" .Page "raw" .Inner "controls" .Attributes.controls) }}
+{{- /*
+    Forward every fence attribute to the mermaid partial, not just `controls`.
+
+    A fenced diagram can carry attributes via the info string, e.g.
+    ```mermaid {controls=true fullscreen=true align=center}
+    Previously only `controls` was passed through, so `fullscreen`, `align`,
+    and any future argument were silently dropped on the code-block path
+    (the shortcode path already supports them). Merging `.Attributes` keeps
+    parity with the shortcode; `page` and `raw` are set last so a stray
+    attribute of the same name can't clobber them.
+*/ -}}
+{{ partial "assets/mermaid.html" (merge .Attributes (dict "page" .Page "raw" .Inner)) }}
