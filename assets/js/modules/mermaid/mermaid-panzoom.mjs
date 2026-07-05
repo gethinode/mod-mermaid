@@ -40,6 +40,44 @@ function expand(wrapper) {
     updateTransform(wrapper, 0, 0, 1, true)
 }
 
+// Fit the whole diagram (contain) within its container and centre it. Used in
+// fullscreen/dialog mode, where the intent is to see the entire bounding box
+// rather than fill the width and scroll vertically.
+function fit(wrapper) {
+    const container = wrapper.parentElement
+    const cw = container.clientWidth
+    const ch = container.clientHeight
+    const ww = wrapper.offsetWidth
+    const wh = wrapper.offsetHeight
+    if (!cw || !ch || !ww || !wh) { expand(wrapper); return }
+    // Inset the fit area so the diagram never sits flush against the edges,
+    // with extra room at the top for the controls cluster (top-right).
+    const padX = 24
+    const padTop = 48
+    const padBottom = 24
+    const availW = Math.max(1, cw - 2 * padX)
+    const availH = Math.max(1, ch - padTop - padBottom)
+    const scale = Math.min(availW / ww, availH / wh, minScale)
+    // Centre within the inset area, correcting for the wrapper's own layout
+    // offset (it carries a top margin that clears the controls).
+    const left = padX + (availW - ww * scale) / 2
+    const top = padTop + (availH - wh * scale) / 2
+    wrapper.style.transformOrigin = '0 0'
+    updateTransform(wrapper, left - wrapper.offsetLeft, top - wrapper.offsetTop, scale, true)
+}
+
+// A dialog is laid out asynchronously after showModal(), so its container has
+// no size yet when the clone is first observed. Poll a few frames until it
+// does, then fit once.
+function fitWhenReady(wrapper, tries = 0) {
+    const container = wrapper.parentElement
+    if (container.clientWidth > 0 && container.clientHeight > 0) {
+        fit(wrapper)
+    } else if (tries < 30) {
+        requestAnimationFrame(() => fitWhenReady(wrapper, tries + 1))
+    }
+}
+
 function zoomIn(wrapper) {
     const scale = Math.min(getScale(wrapper) * step, minScale)
     const c = getTranslateXY(wrapper)
@@ -173,11 +211,19 @@ function initWrapper(wrapper) {
     wrapper.dataset.panzoomInit = 'true'
 
     const container = wrapper.parentElement
+
+    // In a dialog (the fullscreen lightbox) the intent is to see the whole
+    // diagram, so the reset control fits the entire bounding box and the
+    // diagram opens fitted. Inline keeps the width-fill behaviour, where a
+    // tall diagram stays reachable via the container's vertical scroll.
+    const inDialog = !!wrapper.closest('dialog')
+    const reset = inDialog ? () => fit(wrapper) : () => expand(wrapper)
+
     const btnExpand = container.querySelector('.control-btn-expand')
     const btnZoomOut = container.querySelector('.control-btn-zoom-out')
     const btnZoomIn = container.querySelector('.control-btn-zoom-in')
 
-    if (btnExpand) btnExpand.addEventListener('click', () => { expand(wrapper) })
+    if (btnExpand) btnExpand.addEventListener('click', reset)
     if (btnZoomOut) btnZoomOut.addEventListener('click', () => { zoomOut(wrapper) })
     if (btnZoomIn) btnZoomIn.addEventListener('click', () => { zoomIn(wrapper) })
 
@@ -188,6 +234,8 @@ function initWrapper(wrapper) {
     container.addEventListener('touchmove', (e) => { handleTouchmove(wrapper, e) })
     container.addEventListener('touchend', (e) => { handleTouchend(wrapper, e) })
     container.addEventListener('wheel', (e) => { handleWheel(wrapper, e) })
+
+    if (inDialog) fitWhenReady(wrapper)
 }
 
 document.querySelectorAll('.diagram-wrapper').forEach(wrapper => initWrapper(wrapper))
