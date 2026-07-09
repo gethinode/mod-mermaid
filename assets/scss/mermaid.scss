@@ -11,11 +11,43 @@ pre.mermaid:not([data-processed]) {
 .diagram-container {
     position: relative;
     overflow: hidden;
+    cursor: default;        // inline preview is passive by default
+    touch-action: auto;     // let the page scroll/pan over inline diagrams
+}
+
+// Inline diagrams that can be expanded to the dialog read as clickable.
+.diagram-container.diagram-clickable {
+    cursor: zoom-in;
+}
+
+// The fullscreen dialog: pan/zoom own the modal viewport.
+dialog .diagram-container {
     cursor: grab;
+    touch-action: none;
+}
+
+// INLINE-A (controls without a dialog): cooperative inline pan/zoom. Drag pans;
+// one-finger vertical scroll must still reach the page, so allow pan-y.
+.diagram-container.diagram-interactive {
+    cursor: grab;
+    touch-action: pan-y;
 }
 
 .diagram-container.grabbing {
     cursor: grabbing;
+}
+
+// Hide the reset/zoom controls on the inline preview (only the fullscreen
+// button shows); the dialog clone re-shows them.
+.diagram-has-fullscreen {
+    .control-btn-expand,
+    .control-btn-zoom-out,
+    .control-btn-zoom-in { display: none; }
+}
+dialog .diagram-has-fullscreen {
+    .control-btn-expand,
+    .control-btn-zoom-out,
+    .control-btn-zoom-in { display: inline-flex; }
 }
 
 .diagram-controls {

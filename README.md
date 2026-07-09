@@ -54,6 +54,19 @@ YOUR DIAGRAM
 {{< /mermaid >}}
 </pre>
 
+### Interactive controls
+
+A diagram accepts two per-diagram arguments — as fenced code-block attributes or shortcode parameters:
+
+- `controls` (bool) — render inline pan/zoom controls.
+- `fullscreen` (`true` | `false` | `auto`) — render a button that opens the diagram in a fullscreen dialog. `auto` enables it only for diagrams whose source has at least `mermaid.autoThreshold` significant lines beyond the diagram-type header. A per-diagram value overrides the site-wide `mermaid.fullscreen` default.
+
+```mermaid {fullscreen=true}
+YOUR DIAGRAM
+```
+
+When `fullscreen` is enabled, the inline diagram is a **passive preview**: the whole diagram is clickable to open the dialog, page scroll is never trapped, and all pan/zoom happen inside the dialog. When only `controls` is set (no dialog), inline pan/zoom stay active but **cooperative** — the wheel zooms only with `Ctrl`/`⌘` held (plain wheel scrolls the page), and touch pans with two fingers.
+
 The module supports dark mode and allows creation of a custom mermaid theme by overriding and setting the theme variables in `assets/scss/mermaid.scss`. Checkout the [mermaid docs](https://mermaid.js.org/config/theming.html) for custom styling. All theme variables can be used, but in kebab case and with prefix as shown in the example below. Also Bootstrap theme variables can be referenced.
 
 ```scss
@@ -89,6 +102,8 @@ This module supports the following parameters (see the section `params.modules` 
 | mermaid.elk    | false     | If set, installs the layout engine for Mermaid based on the ELK layout engine. |
 | mermaid.layout | `dagre`   | Defines which layout algorithm to use for rendering Mermaid diagrams. The default algorithm is `dagre`. Additional options are available when `mermaid.elk` is enabled, see the table below. |
 | mermaid.look   | `classic` | Defines the default look for Mermaid diagrams, either `classic` or `handDrawn`. |
+| mermaid.fullscreen | `false` | Site-wide default for the per-diagram `fullscreen` argument. `true`/`false` force the fullscreen affordance; `auto` enables it only for diagrams whose source has at least `mermaid.autoThreshold` significant lines beyond the diagram-type header. A per-diagram value overrides this. |
+| mermaid.autoThreshold | `10` | Significant-line count above which `fullscreen: auto` enables the fullscreen affordance. |
 
 The following table defines the available layout algorithms. The `elk` values require installation of the ELK layout engine (set `mermaid.elk` to `true`).
 
