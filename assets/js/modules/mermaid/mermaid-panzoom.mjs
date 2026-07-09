@@ -224,7 +224,10 @@ function initWrapper(wrapper) {
     if (btnZoomIn) btnZoomIn.addEventListener('click', () => zoomIn(wrapper))
 
     if (inDialog) {
-        // Modal: pan/zoom own the viewport, wheel needs no modifier.
+        // Modal: pan/zoom own the viewport, wheel needs no modifier. The clone
+        // inherits the inline preview's marker class from the source node; drop
+        // it so the dialog cursor is grab, not the inline zoom-in.
+        container.classList.remove('diagram-clickable', 'diagram-interactive')
         bindGestures(wrapper, container, { requireModifier: false, oneFingerPan: true })
         fitWhenReady(wrapper)
     } else if (hasFullscreen) {
