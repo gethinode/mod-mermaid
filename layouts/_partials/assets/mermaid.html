@@ -25,7 +25,8 @@
      NEVER use `| default` on it — that would clobber an explicit false. */}}
 {{- $fs := false -}}
 {{- if eq (lower (string $args.fullscreen)) "auto" -}}
-    {{- $threshold := int (or (index site.Params "modules" "mermaid" "autoThreshold") 10) -}}
+    {{- $atRaw := index site.Params "modules" "mermaid" "autoThreshold" -}}
+    {{- $threshold := int (cond (eq $atRaw nil) 10 $atRaw) -}}
     {{- $score := 0 -}}
     {{- range (split (trim $args.raw "\r\n") "\n") -}}
         {{- $line := trim . " \t\r" -}}
