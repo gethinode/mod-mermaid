@@ -4,12 +4,13 @@ const step = 1.2
 const zoomFactor = 0.02
 
 let current, mouseX, mouseY, touchX, touchY
+let initialDistance, initialScale
 
 // Update transform
 function updateTransform(wrapper, translateX, translateY, scale, ease) {
     setScale(wrapper, scale)
 
-    if (ease) { 
+    if (ease) {
         wrapper.style.transition = 'all 0.3s ease-in-out'
     } else {
         wrapper.style.transition = ''
@@ -25,16 +26,16 @@ function getTranslateXY(element) {
         translateY: matrix.m42
     }
 }
+
 function getScale(wrapper) {
-    const scale = wrapper.getAttribute('data-scale') || 1
-    return scale
+    return wrapper.getAttribute('data-scale') || 1
 }
 
 function setScale(wrapper, scale) {
     wrapper.setAttribute('data-scale', scale)
 }
 
-// Zoom and expand functions
+// Zoom and reset helpers
 function expand(wrapper) {
     wrapper.style.transformOrigin = ''
     updateTransform(wrapper, 0, 0, 1, true)
@@ -50,16 +51,12 @@ function fit(wrapper) {
     const ww = wrapper.offsetWidth
     const wh = wrapper.offsetHeight
     if (!cw || !ch || !ww || !wh) { expand(wrapper); return }
-    // Inset the fit area so the diagram never sits flush against the edges,
-    // with extra room at the top for the controls cluster (top-right).
     const padX = 24
     const padTop = 48
     const padBottom = 24
     const availW = Math.max(1, cw - 2 * padX)
     const availH = Math.max(1, ch - padTop - padBottom)
     const scale = Math.min(availW / ww, availH / wh, minScale)
-    // Centre within the inset area, correcting for the wrapper's own layout
-    // offset (it carries a top margin that clears the controls).
     const left = padX + (availW - ww * scale) / 2
     const top = padTop + (availH - wh * scale) / 2
     wrapper.style.transformOrigin = '0 0'
@@ -81,31 +78,27 @@ function fitWhenReady(wrapper, tries = 0) {
 function zoomIn(wrapper) {
     const scale = Math.min(getScale(wrapper) * step, minScale)
     const c = getTranslateXY(wrapper)
-    // wrapper.style.transformOrigin = ''
     updateTransform(wrapper, c.translateX, c.translateY, scale, true)
 }
 
 function zoomOut(wrapper) {
     const scale = Math.max(getScale(wrapper) / step, maxScale)
     const c = getTranslateXY(wrapper)
-    // wrapper.style.transformOrigin = ''
     updateTransform(wrapper, c.translateX, c.translateY, scale, true)
 }
 
-// Event handlers
+// Mouse drag (pan) — bound only where gestures are active.
 function handleMousedown(wrapper, e) {
-        e.preventDefault()
-
-        wrapper.parentElement.classList.add('grabbing')
-        current = getTranslateXY(wrapper)
-        mouseX = e.clientX
-        mouseY = e.clientY
+    e.preventDefault()
+    wrapper.parentElement.classList.add('grabbing')
+    current = getTranslateXY(wrapper)
+    mouseX = e.clientX
+    mouseY = e.clientY
 }
 
 function handleMousemove(wrapper, e) {
     if (Array.from(wrapper.parentElement.classList).includes('grabbing')) {
         e.preventDefault()
-
         const deltaX = current.translateX + e.clientX - mouseX
         const deltaY = current.translateY + e.clientY - mouseY
         updateTransform(wrapper, deltaX, deltaY, getScale(wrapper))
@@ -114,96 +107,103 @@ function handleMousemove(wrapper, e) {
 
 function handleMouseup(wrapper, e) {
     e.preventDefault()
-
     wrapper.parentElement.classList.remove('grabbing')
     mouseX = null
     mouseY = null
     current = null
 }
 
-function handleWheel(wrapper, e) {
+// Wheel zoom. Gated by requireModifier so plain wheel scrolls the page inline;
+// the dialog is modal (nothing scrolls behind it) so it passes false.
+function handleWheel(wrapper, e, requireModifier) {
+    if (requireModifier && !(e.ctrlKey || e.metaKey)) return
     e.preventDefault()
-    
-    // Get mouse position relative to the container
+
     const rect = wrapper.parentElement.getBoundingClientRect()
     const clientX = e.clientX - rect.left
     const clientY = e.clientY - rect.top
     const currentScale = getScale(wrapper)
     const curr = getTranslateXY(wrapper)
 
-    // Calculate zoom direction and new scale
-    const zoomIn = e.deltaY < 0
-    const factor = zoomIn ? (1 + zoomFactor) : (1 - zoomFactor)
+    const zoomingIn = e.deltaY < 0
+    const factor = zoomingIn ? (1 + zoomFactor) : (1 - zoomFactor)
     const newScale = Math.max(maxScale, Math.min(minScale, currentScale * factor))
-    
+
     if (newScale !== currentScale) {
-        // Calculate the zoom factor that was actually applied
         const actualFactor = newScale / currentScale
-        
-        // Adjust translation to zoom towards mouse position
         const currentTranslateX = clientX - (clientX - curr.translateX) * actualFactor
         const currentTranslateY = clientY - (clientY - curr.translateY) * actualFactor
-        
         wrapper.style.transformOrigin = '0 0'
         updateTransform(wrapper, currentTranslateX, currentTranslateY, newScale)
     }
 }
 
-// Touch events for mobile
-function handleTouchstart(wrapper, e) {
+// Touch. oneFingerPan=false (INLINE-A) lets a single-finger drag scroll the
+// page; two fingers always pan/pinch.
+function handleTouchstart(wrapper, e, oneFingerPan) {
     if (e.touches.length === 1) {
+        if (!oneFingerPan) return
         touchX = e.touches[0].clientX
         touchY = e.touches[0].clientY
         wrapper.parentElement.classList.add('grabbing')
     } else if (e.touches.length === 2) {
         e.preventDefault()
         wrapper.parentElement.classList.remove('grabbing')
-        
-        const touch1 = e.touches[0]
-        const touch2 = e.touches[1]
-        
-        initialDistance = Math.sqrt(
-            Math.pow(touch2.clientX - touch1.clientX, 2) +
-            Math.pow(touch2.clientY - touch1.clientY, 2)
-        )
-        initialScale = scale
+        const t1 = e.touches[0]
+        const t2 = e.touches[1]
+        initialDistance = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY)
+        initialScale = Number(getScale(wrapper))
     }
 }
 
-function handleTouchmove(wrapper, e) {
+function handleTouchmove(wrapper, e, oneFingerPan) {
     if (e.touches.length === 1) {
+        if (!oneFingerPan) return
         if (!Array.from(wrapper.parentElement.classList).includes('grabbing')) return
         e.preventDefault()
-        
         const deltaX = e.touches[0].clientX - (touchX || 0)
         const deltaY = e.touches[0].clientY - (touchY || 0)
         const c = getTranslateXY(wrapper)
-
-        const translateX = c.translateX + deltaX
-        const translateY = c.translateY + deltaY
-                
         touchX = e.touches[0].clientX
         touchY = e.touches[0].clientY
-        
-        updateTransform(wrapper, translateX, translateY, getScale(wrapper))
+        updateTransform(wrapper, c.translateX + deltaX, c.translateY + deltaY, getScale(wrapper))
     } else if (e.touches.length === 2) {
         e.preventDefault()
-        const touch1 = e.touches[0]
-        const touch2 = e.touches[1]
+        const t1 = e.touches[0]
+        const t2 = e.touches[1]
         const c = getTranslateXY(wrapper)
-        
-        const currentDistance = Math.sqrt(
-            Math.pow(touch2.clientX - touch1.clientX, 2) +
-            Math.pow(touch2.clientY - touch1.clientY, 2)
-        );
-        
+        const currentDistance = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY)
         const scale = Math.max(maxScale, Math.min(minScale, initialScale * (currentDistance / initialDistance)))
-        updateTransform(wrapper, c.currentTranslateX, c.currentTranslateY, scale)
+        updateTransform(wrapper, c.translateX, c.translateY, scale)
     }
 }
 
-function handleTouchend(wrapper, e) {
+function handleTouchend(wrapper) {
     wrapper.parentElement.classList.remove('grabbing')
+}
+
+// Bind interactive gestures (drag + wheel + touch) to a wrapper's container.
+function bindGestures(wrapper, container, { requireModifier, oneFingerPan }) {
+    container.addEventListener('mousedown', (e) => handleMousedown(wrapper, e))
+    container.addEventListener('mousemove', (e) => handleMousemove(wrapper, e))
+    document.addEventListener('mouseup', (e) => handleMouseup(wrapper, e))
+    container.addEventListener('touchstart', (e) => handleTouchstart(wrapper, e, oneFingerPan))
+    container.addEventListener('touchmove', (e) => handleTouchmove(wrapper, e, oneFingerPan), { passive: false })
+    container.addEventListener('touchend', () => handleTouchend(wrapper))
+    container.addEventListener('wheel', (e) => handleWheel(wrapper, e, requireModifier), { passive: false })
+}
+
+// INLINE-B: passive preview with a fullscreen button. Clicking anywhere on the
+// diagram (except a control) opens the dialog by delegating to the accessible
+// fullscreen button — no extra data-lightbox-trigger on the container.
+function makeClickToOpen(container) {
+    const trigger = container.querySelector('.control-btn-fullscreen')
+    if (!trigger) return
+    container.classList.add('diagram-clickable')
+    container.addEventListener('click', (e) => {
+        if (e.target.closest('.control-btn')) return
+        trigger.click()
+    })
 }
 
 function initWrapper(wrapper) {
@@ -211,31 +211,30 @@ function initWrapper(wrapper) {
     wrapper.dataset.panzoomInit = 'true'
 
     const container = wrapper.parentElement
-
-    // In a dialog (the fullscreen lightbox) the intent is to see the whole
-    // diagram, so the reset control fits the entire bounding box and the
-    // diagram opens fitted. Inline keeps the width-fill behaviour, where a
-    // tall diagram stays reachable via the container's vertical scroll.
     const inDialog = !!wrapper.closest('dialog')
-    const reset = inDialog ? () => fit(wrapper) : () => expand(wrapper)
+    const hasFullscreen = !!container.querySelector('.control-btn-fullscreen')
 
+    // Reset control: fit the whole diagram in the dialog, else reset transform.
+    const reset = inDialog ? () => fit(wrapper) : () => expand(wrapper)
     const btnExpand = container.querySelector('.control-btn-expand')
     const btnZoomOut = container.querySelector('.control-btn-zoom-out')
     const btnZoomIn = container.querySelector('.control-btn-zoom-in')
-
     if (btnExpand) btnExpand.addEventListener('click', reset)
-    if (btnZoomOut) btnZoomOut.addEventListener('click', () => { zoomOut(wrapper) })
-    if (btnZoomIn) btnZoomIn.addEventListener('click', () => { zoomIn(wrapper) })
+    if (btnZoomOut) btnZoomOut.addEventListener('click', () => zoomOut(wrapper))
+    if (btnZoomIn) btnZoomIn.addEventListener('click', () => zoomIn(wrapper))
 
-    container.addEventListener('mousedown', (e) => { handleMousedown(wrapper, e) })
-    container.addEventListener('mousemove', (e) => { handleMousemove(wrapper, e) })
-    document.addEventListener('mouseup', (e) => { handleMouseup(wrapper, e) })
-    container.addEventListener('touchstart', (e) => { handleTouchstart(wrapper, e) })
-    container.addEventListener('touchmove', (e) => { handleTouchmove(wrapper, e) })
-    container.addEventListener('touchend', (e) => { handleTouchend(wrapper, e) })
-    container.addEventListener('wheel', (e) => { handleWheel(wrapper, e) })
-
-    if (inDialog) fitWhenReady(wrapper)
+    if (inDialog) {
+        // Modal: pan/zoom own the viewport, wheel needs no modifier.
+        bindGestures(wrapper, container, { requireModifier: false, oneFingerPan: true })
+        fitWhenReady(wrapper)
+    } else if (hasFullscreen) {
+        // INLINE-B: passive preview; the whole diagram opens the dialog.
+        makeClickToOpen(container)
+    } else {
+        // INLINE-A: no dialog to escape to — cooperative inline gestures.
+        container.classList.add('diagram-interactive')
+        bindGestures(wrapper, container, { requireModifier: true, oneFingerPan: false })
+    }
 }
 
 document.querySelectorAll('.diagram-wrapper').forEach(wrapper => initWrapper(wrapper))
