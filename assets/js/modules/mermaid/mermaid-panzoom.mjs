@@ -35,6 +35,41 @@ function setScale(wrapper, scale) {
     wrapper.setAttribute('data-scale', scale)
 }
 
+// Clamp a pan translation so at least ~10% of the scaled diagram stays visible
+// on each axis — it can be pushed to an edge but never fully out of view.
+// `scale` defaults to the current scale (drag); zoom gestures pass the scale
+// they are about to apply so the bounds match the post-zoom size.
+function clampTranslate(wrapper, tx, ty, scale) {
+    const container = wrapper.parentElement
+    const s = Number(scale != null ? scale : getScale(wrapper))
+    const w = wrapper.offsetWidth * s
+    const h = wrapper.offsetHeight * s
+    const cw = container.clientWidth
+    const ch = container.clientHeight
+    const keepX = 0.1 * Math.min(w, cw)
+    const keepY = 0.1 * Math.min(h, ch)
+    const minX = keepX - w - wrapper.offsetLeft
+    const maxX = cw - keepX - wrapper.offsetLeft
+    const minY = keepY - h - wrapper.offsetTop
+    const maxY = ch - keepY - wrapper.offsetTop
+    return {
+        x: Math.min(Math.max(tx, minX), maxX),
+        y: Math.min(Math.max(ty, minY), maxY)
+    }
+}
+
+// Fade the fitted diagram in (rather than snapping) so it eases in with the
+// dialog instead of popping once the fit-on-open settles. Reveals instantly
+// under reduced-motion.
+function revealDiagram(container) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        container.style.opacity = '1'
+        return
+    }
+    container.style.transition = 'opacity 0.2s ease-out'
+    requestAnimationFrame(() => { container.style.opacity = '1' })
+}
+
 // Zoom and reset helpers
 function expand(wrapper) {
     wrapper.style.transformOrigin = ''
@@ -72,12 +107,12 @@ function fitWhenReady(wrapper, tries = 0) {
     const container = wrapper.parentElement
     if (container.clientWidth > 0 && container.clientHeight > 0) {
         fit(wrapper, false)
-        wrapper.style.visibility = ''
+        revealDiagram(container)
     } else if (tries < 30) {
         requestAnimationFrame(() => fitWhenReady(wrapper, tries + 1))
     } else {
         // Sizing never resolved; reveal anyway so the diagram is never left hidden.
-        wrapper.style.visibility = ''
+        revealDiagram(container)
     }
 }
 
@@ -107,7 +142,8 @@ function handleMousemove(wrapper, e) {
         e.preventDefault()
         const deltaX = current.translateX + e.clientX - mouseX
         const deltaY = current.translateY + e.clientY - mouseY
-        updateTransform(wrapper, deltaX, deltaY, getScale(wrapper))
+        const p = clampTranslate(wrapper, deltaX, deltaY)
+        updateTransform(wrapper, p.x, p.y, getScale(wrapper))
     }
 }
 
@@ -139,8 +175,9 @@ function handleWheel(wrapper, e, requireModifier) {
         const actualFactor = newScale / currentScale
         const currentTranslateX = clientX - (clientX - curr.translateX) * actualFactor
         const currentTranslateY = clientY - (clientY - curr.translateY) * actualFactor
+        const p = clampTranslate(wrapper, currentTranslateX, currentTranslateY, newScale)
         wrapper.style.transformOrigin = '0 0'
-        updateTransform(wrapper, currentTranslateX, currentTranslateY, newScale)
+        updateTransform(wrapper, p.x, p.y, newScale)
     }
 }
 
@@ -172,7 +209,8 @@ function handleTouchmove(wrapper, e, oneFingerPan) {
         const c = getTranslateXY(wrapper)
         touchX = e.touches[0].clientX
         touchY = e.touches[0].clientY
-        updateTransform(wrapper, c.translateX + deltaX, c.translateY + deltaY, getScale(wrapper))
+        const p = clampTranslate(wrapper, c.translateX + deltaX, c.translateY + deltaY)
+        updateTransform(wrapper, p.x, p.y, getScale(wrapper))
     } else if (e.touches.length === 2) {
         e.preventDefault()
         const t1 = e.touches[0]
@@ -180,7 +218,8 @@ function handleTouchmove(wrapper, e, oneFingerPan) {
         const c = getTranslateXY(wrapper)
         const currentDistance = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY)
         const scale = Math.max(maxScale, Math.min(minScale, initialScale * (currentDistance / initialDistance)))
-        updateTransform(wrapper, c.translateX, c.translateY, scale)
+        const p = clampTranslate(wrapper, c.translateX, c.translateY, scale)
+        updateTransform(wrapper, p.x, p.y, scale)
     }
 }
 
@@ -234,9 +273,10 @@ function initWrapper(wrapper) {
         // inherits the inline preview's marker class from the source node; drop
         // it so the dialog cursor is grab, not the inline zoom-in.
         container.classList.remove('diagram-clickable', 'diagram-interactive')
-        // Hide until the fit-on-open settles (revealed in fitWhenReady) so the
-        // dialog never shows the unfitted clone or a recenter/resize jump.
-        wrapper.style.visibility = 'hidden'
+        // Hide until the fit-on-open settles (faded in by fitWhenReady) so the
+        // dialog never shows the unfitted clone or a jump — the diagram fades in
+        // rather than snapping. Opacity (not visibility) so it can transition.
+        container.style.opacity = '0'
         bindGestures(wrapper, container, { requireModifier: false, oneFingerPan: true })
         fitWhenReady(wrapper)
     } else if (hasFullscreen) {
