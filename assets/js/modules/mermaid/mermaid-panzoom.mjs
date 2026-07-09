@@ -44,7 +44,7 @@ function expand(wrapper) {
 // Fit the whole diagram (contain) within its container and centre it. Used in
 // fullscreen/dialog mode, where the intent is to see the entire bounding box
 // rather than fill the width and scroll vertically.
-function fit(wrapper) {
+function fit(wrapper, ease = true) {
     const container = wrapper.parentElement
     const cw = container.clientWidth
     const ch = container.clientHeight
@@ -60,18 +60,24 @@ function fit(wrapper) {
     const left = padX + (availW - ww * scale) / 2
     const top = padTop + (availH - wh * scale) / 2
     wrapper.style.transformOrigin = '0 0'
-    updateTransform(wrapper, left - wrapper.offsetLeft, top - wrapper.offsetTop, scale, true)
+    updateTransform(wrapper, left - wrapper.offsetLeft, top - wrapper.offsetTop, scale, ease)
 }
 
 // A dialog is laid out asynchronously after showModal(), so its container has
 // no size yet when the clone is first observed. Poll a few frames until it
-// does, then fit once.
+// does, then fit once — instantly (no eased transition) and only then reveal
+// the wrapper, so the diagram appears already settled instead of animating
+// into place from its unfitted clone position.
 function fitWhenReady(wrapper, tries = 0) {
     const container = wrapper.parentElement
     if (container.clientWidth > 0 && container.clientHeight > 0) {
-        fit(wrapper)
+        fit(wrapper, false)
+        wrapper.style.visibility = ''
     } else if (tries < 30) {
         requestAnimationFrame(() => fitWhenReady(wrapper, tries + 1))
+    } else {
+        // Sizing never resolved; reveal anyway so the diagram is never left hidden.
+        wrapper.style.visibility = ''
     }
 }
 
@@ -228,6 +234,9 @@ function initWrapper(wrapper) {
         // inherits the inline preview's marker class from the source node; drop
         // it so the dialog cursor is grab, not the inline zoom-in.
         container.classList.remove('diagram-clickable', 'diagram-interactive')
+        // Hide until the fit-on-open settles (revealed in fitWhenReady) so the
+        // dialog never shows the unfitted clone or a recenter/resize jump.
+        wrapper.style.visibility = 'hidden'
         bindGestures(wrapper, container, { requireModifier: false, oneFingerPan: true })
         fitWhenReady(wrapper)
     } else if (hasFullscreen) {
