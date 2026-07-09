@@ -18,12 +18,20 @@ arguments:
   controls:
     release: v1.7.0
   fullscreen:
-    type: bool
+    type: string
     default: false
+    config: modules.mermaid.fullscreen
     optional: true
+    options:
+      values:
+        - "true"
+        - "false"
+        - "auto"
     comment: >-
-      Flag indicating if the diagram should include a fullscreen control that
-      opens it in the lightbox overlay.
+      Controls the fullscreen affordance. "true"/"false" force it on/off;
+      "auto" enables it only for diagrams whose source exceeds
+      `modules.mermaid.autoThreshold` significant lines. When unset, falls back
+      to the site parameter `modules.mermaid.fullscreen`, then to false.
     release: v4.6.0
   align:
     comment: >-

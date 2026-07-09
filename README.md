@@ -89,6 +89,8 @@ This module supports the following parameters (see the section `params.modules` 
 | mermaid.elk    | false     | If set, installs the layout engine for Mermaid based on the ELK layout engine. |
 | mermaid.layout | `dagre`   | Defines which layout algorithm to use for rendering Mermaid diagrams. The default algorithm is `dagre`. Additional options are available when `mermaid.elk` is enabled, see the table below. |
 | mermaid.look   | `classic` | Defines the default look for Mermaid diagrams, either `classic` or `handDrawn`. |
+| mermaid.fullscreen | `false` | Site-wide default for the per-diagram `fullscreen` argument. `true`/`false` force the fullscreen affordance; `auto` enables it only for diagrams whose source exceeds `mermaid.autoThreshold` significant lines. A per-diagram value overrides this. |
+| mermaid.autoThreshold | `10` | Significant-line count above which `fullscreen: auto` enables the fullscreen affordance. |
 
 The following table defines the available layout algorithms. The `elk` values require installation of the ELK layout engine (set `mermaid.elk` to `true`).
 

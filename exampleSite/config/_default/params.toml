@@ -6,6 +6,8 @@
         elk = true
         layout = "elk"
         look = "classic"
+        fullscreen = "auto"
+        autoThreshold = 10
 
 [debugging]
     showJS = true
