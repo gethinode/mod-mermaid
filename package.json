@@ -12,22 +12,22 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "prestart": "npm run clean && npm run mod:vendor",
+    "prestart": "pnpm clean && pnpm mod:vendor",
     "start": "hugo server -s exampleSite --bind=0.0.0.0 --disableFastRender --printI18nWarnings",
-    "prebuild": "npm run clean && npm run mod:vendor",
+    "prebuild": "pnpm clean && pnpm mod:vendor",
     "build": "hugo --gc --minify -s exampleSite",
     "clean": "rimraf exampleSite/public exampleSite/resources",
     "mod:clean": "hugo mod clean",
-    "mod:update": "rimraf _vendor && hugo mod get -u ./... && hugo mod get -u && npm run -s mod:vendor && npm run -s mod:tidy",
+    "mod:update": "rimraf _vendor && hugo mod get -u ./... && hugo mod get -u && pnpm mod:vendor && pnpm mod:tidy",
     "mod:tidy": "hugo mod tidy",
     "mod:vendor": "rimraf _vendor && hugo mod vendor",
-    "postinstall": "npm-run-all copy:**",
+    "postinstall": "pnpm copy:js1 && pnpm copy:js2 && pnpm copy:js3 && pnpm copy:js4",
     "copy:js1": "cpy node_modules/mermaid/dist/mermaid.esm.min.mjs dist --flat",
     "copy:js2": "cpy \"node_modules/mermaid/dist/chunks/mermaid.esm.min/*.mjs\" \"dist/chunks/mermaid.esm.min/\" --flat",
     "copy:js3": "cpy node_modules/@mermaid-js/layout-elk/dist/mermaid-layout-elk.esm.min.mjs dist/layout-elk --flat",
     "copy:js4": "cpy \"node_modules/@mermaid-js/layout-elk/dist/chunks/mermaid-layout-elk.esm.min/\" \"dist/layout-elk/chunks/mermaid-layout-elk.esm.min/\"",
-    "test": "npm run -s build",
-    "upgrade": "npx npm-check-updates -u && npm run -s mod:update",
+    "test": "pnpm build",
+    "upgrade": "pnpm dlx npm-check-updates -u && pnpm mod:update",
     "prepare": "node .husky/install.mjs"
   },
   "repository": {
@@ -40,6 +40,7 @@
     "url": "https://github.com/gethinode/hinode/issues"
   },
   "homepage": "https://gethinode.com",
+  "packageManager": "pnpm@11.8.0+sha512.c1f5e7c4cb241c8f174b743851d82f42b802324afc8b0f116b96adb15aa06664948dde36960a3ba1079ba5b4b29dd0140135b94b5b5f5263592249d68e555f26",
   "devDependencies": {
     "@commitlint/cli": "^21.2.0",
     "@commitlint/config-conventional": "^21.1.0",
@@ -49,15 +50,11 @@
     "commitizen": "^4.3.2",
     "cpy-cli": "^7.0.0",
     "cz-conventional-changelog": "^3.3.0",
-    "hugo-bin": "^0.149.2",
+    "hugo-extended": "^0.164.0",
     "husky": "^9.1.7",
     "mermaid": "^11.16.0",
-    "npm-run-all": "^4.1.5",
     "rimraf": "^6.1.3",
     "semantic-release": "^25.0.5"
-  },
-  "hugo-bin": {
-    "buildTags": "extended"
   },
   "release": {
     "branches": "main",
@@ -68,7 +65,7 @@
       [
         "@semantic-release/exec",
         {
-          "prepare": "npm install"
+          "prepare": "pnpm install --frozen-lockfile"
         }
       ],
       [
@@ -77,7 +74,7 @@
           "assets": [
             "dist",
             "package.json",
-            "package-lock.json"
+            "pnpm-lock.yaml"
           ],
           "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
         }
