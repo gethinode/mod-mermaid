@@ -28,9 +28,9 @@
     source = 'static'
     target = 'static'
   [[module.imports]]
-    path = "github.com/gethinode/mod-fontawesome/v5"
+    path = "github.com/gethinode/mod-fontawesome/v6"
   [[module.imports]]
-    path = "github.com/gethinode/mod-utils/v5"
+    path = "github.com/gethinode/mod-utils/v6"
 
 # Icon defaults for mod-mermaid components
 [params.icons]
