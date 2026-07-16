@@ -61,18 +61,18 @@
                 {{ if $fs }}
                 <button type="button" class="control-btn control-btn-fullscreen" data-lightbox-trigger
                         data-lightbox-source-closest=".diagram-container" aria-label="{{ i18n "diagramFullscreen" }}">
-                    {{- partial "assets/icon.html" (dict "icon" $diagramFullscreen "class" "fa-fw fa-xl" "spacing" false) -}}
+                    {{- partial "assets/icon.html" (dict "icon" $diagramFullscreen "class" "fa-fw fa-xl" "spacing" false "page" $args.page) -}}
                 </button>
                 {{ end }}
                 {{/* control-btn-expand resets the pan/zoom (label/icon say "reset"); the class + diagramExpand id are load-bearing — mermaid-panzoom.mjs binds reset to .control-btn-expand, so do not rename them. */}}
                 <button type="button" class="control-btn control-btn-expand" aria-label="{{ i18n "diagramExpand" }}">
-                    {{- partial "assets/icon.html" (dict "icon" $diagramExpand "class" "fa-fw fa-xl" "spacing" false) -}}
+                    {{- partial "assets/icon.html" (dict "icon" $diagramExpand "class" "fa-fw fa-xl" "spacing" false "page" $args.page) -}}
                 </button>
                 <button type="button" class="control-btn control-btn-zoom-out" aria-label="{{ i18n "diagramZoomOut" }}">
-                    {{- partial "assets/icon.html" (dict "icon" $diagramZoomOut "class" "fa-fw fa-xl" "spacing" false) -}}
+                    {{- partial "assets/icon.html" (dict "icon" $diagramZoomOut "class" "fa-fw fa-xl" "spacing" false "page" $args.page) -}}
                 </button>
                 <button type="button" class="control-btn control-btn-zoom-in" aria-label="{{ i18n "diagramZoomIn" }}">
-                    {{- partial "assets/icon.html" (dict "icon" $diagramZoomIn "class" "fa-fw fa-xl" "spacing" false) -}}
+                    {{- partial "assets/icon.html" (dict "icon" $diagramZoomIn "class" "fa-fw fa-xl" "spacing" false "page" $args.page) -}}
                 </button>
             </div>
 
