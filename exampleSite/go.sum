@@ -244,6 +244,8 @@ github.com/gethinode/mod-mermaid/v5 v5.0.0 h1:ZKVZ5a4znJdBvzHmQdZv9dGcI3TNUdA1sz
 github.com/gethinode/mod-mermaid/v5 v5.0.0/go.mod h1:UzpYEHz1txw9sDI+l7EZexHccOdPnvwP1PInT9JKdoo=
 github.com/gethinode/mod-mermaid/v5 v5.0.1 h1:heGJ9i3rDXAh+qU8N0jSEPhVGOsQwxLpNmB+h1FhTg8=
 github.com/gethinode/mod-mermaid/v5 v5.0.1/go.mod h1:3M0XrI6Ginj5EIbXy1xOymv3KsfPuBhD07FEPz1SikI=
+github.com/gethinode/mod-mermaid/v5 v5.0.3 h1:AXcTZHJnvO34bRA8oelegPogNLSIDDwFc3U9p7B8LJU=
+github.com/gethinode/mod-mermaid/v5 v5.0.3/go.mod h1:rrCnPe+gLH83GpMm5uA/SeapZcNBj65jcJVLyXtsXPU=
 github.com/gethinode/mod-simple-datatables v1.0.2 h1:zhqxHet3iLQWYCBbGROALpOY9zQlptMycFkz1Tto5bA=
 github.com/gethinode/mod-simple-datatables v1.0.2/go.mod h1:mmrcvAJU2i3SMU56VmQ5PW43uDXBcsJKcZwCHrvl3Kc=
 github.com/gethinode/mod-simple-datatables v1.0.3 h1:JL2nBlEHWMmkE7EZrpfpmzka47dklJUh23/xKJkOQoI=
@@ -447,6 +449,8 @@ github.com/gethinode/mod-utils/v6 v6.5.0 h1:NdeITAfjt2ah9OHt0Nuu6F+STlC0bO9oHaFl
 github.com/gethinode/mod-utils/v6 v6.5.0/go.mod h1:E5tO9w3VKaidJpu1nI8zAKmh0bddFHOIIQnudAaXQTs=
 github.com/gethinode/mod-utils/v6 v6.5.1 h1:HhCN8Bc0cWxIY0ukjKP9O3jDbKg9F/YaTPO6vqjjk+I=
 github.com/gethinode/mod-utils/v6 v6.5.1/go.mod h1:E5tO9w3VKaidJpu1nI8zAKmh0bddFHOIIQnudAaXQTs=
+github.com/gethinode/mod-utils/v6 v6.6.2 h1:hSk1SR1MLkgZMh6cdZWwwUpGxf2vt0HQFVcbc0QQjdw=
+github.com/gethinode/mod-utils/v6 v6.6.2/go.mod h1:E5tO9w3VKaidJpu1nI8zAKmh0bddFHOIIQnudAaXQTs=
 github.com/nextapps-de/flexsearch v0.0.0-20240501124520-961c3ae84a87 h1:6PNbL0/LxO8Xl8MZSe5uvCidYNpFTz9nlWTqj2qdlzA=
 github.com/nextapps-de/flexsearch v0.0.0-20240501124520-961c3ae84a87/go.mod h1:5GdMfPAXzbA2gXBqTjC6l27kioSYzHlqDMh0+wyx7sU=
 github.com/nextapps-de/flexsearch v0.0.0-20250210141409-f78ebb388862 h1:+kGQ+34t7Bv0mbwTGUxwQU2ruuac8jsHEvcleSRUI3M=
