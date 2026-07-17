@@ -15,7 +15,7 @@
         "warnid"  "warn-invalid-arguments"
         "msg"     "Invalid arguments"
         "details" ($result.errmsg | append $result.warnmsg)
-        "file"    page.File
+        "file"    (or $args.page page).File
     ) -}}
     {{- $error = $result.err -}}
 {{- end -}}
