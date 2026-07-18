@@ -54,6 +54,10 @@
 
 {{/* Main code */}}
 {{ if not $error }}
+    {{/* Register the mermaid module as a page dependency, so the page's script and stylesheet
+         handlers include its assets without requiring `modules = ["mermaid"]` in front matter.
+         Both entry points (codeblock render hook and shortcode) funnel through this partial. */}}
+    {{ partial "utilities/AddModule.html" (dict "page" $args.page "module" "mermaid") }}
     {{ if or $args.controls $fs }}
         {{ if $fs }}{{ partial "utilities/AddModule.html" (dict "page" $args.page "module" "lightbox") }}{{ end }}
         <div class="diagram-container{{ if $fs }} diagram-has-fullscreen{{ end }}{{ $alignClass }}">
