@@ -16,7 +16,7 @@ importers:
         version: 21.2.2
       '@mermaid-js/layout-elk':
         specifier: ^0.2.3
-        version: 0.2.3(mermaid@11.17.0)
+        version: 0.2.3(mermaid@11.17.1)
       '@semantic-release/exec':
         specifier: ^7.1.0
         version: 7.1.0(semantic-release@25.0.9(typescript@5.4.5))
@@ -33,8 +33,8 @@ importers:
         specifier: ^9.1.7
         version: 9.1.7
       mermaid:
-        specifier: ^11.17.0
-        version: 11.17.0
+        specifier: ^11.17.1
+        version: 11.17.1
       rimraf:
         specifier: ^6.1.3
         version: 6.1.3
@@ -1318,8 +1318,8 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
-  mermaid@11.17.0:
-    resolution: {integrity: sha512-Jo9N377Wb4MSnHFPTbLi2SxFpsQl4eVHoxnW5U1Md9EazvgMp3s+4ohDxr81YNTgbn5Kj7HJ3yslrSJ52kwpbA==}
+  mermaid@11.17.1:
+    resolution: {integrity: sha512-G1BP6qU4BRwEGk2SdsxgDk1cSuApimT32Nkb52YRSv+856FrmB8qo28BaNk9Ee8Fvuon3OxpXDJ4L6cD5AykXg==}
 
   micromatch@4.0.8:
     resolution: {integrity: sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==}
@@ -2178,11 +2178,11 @@ snapshots:
     dependencies:
       minipass: 7.1.2
 
-  '@mermaid-js/layout-elk@0.2.3(mermaid@11.17.0)':
+  '@mermaid-js/layout-elk@0.2.3(mermaid@11.17.1)':
     dependencies:
       d3: 7.9.0
       elkjs: 0.9.3
-      mermaid: 11.17.0
+      mermaid: 11.17.1
 
   '@mermaid-js/parser@1.2.1':
     dependencies:
@@ -3395,7 +3395,7 @@ snapshots:
 
   merge2@1.4.1: {}
 
-  mermaid@11.17.0:
+  mermaid@11.17.1:
     dependencies:
       '@braintree/sanitize-url': 7.1.2
       '@iconify/utils': 3.1.4
