@@ -48,7 +48,7 @@
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^11.0.1",
     "cpy-cli": "^7.0.0",
-    "hugo-extended": "^0.164.0",
+    "hugo-extended": "^0.165.0",
     "husky": "^9.1.7",
     "mermaid": "^11.17.2",
     "rimraf": "^6.1.3",
