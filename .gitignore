@@ -4,6 +4,7 @@
 node_modules/
 exampleSite/public
 exampleSite/resources
+.playwright-mcp/
 
 .DS_store
 .hugo_build.lock
