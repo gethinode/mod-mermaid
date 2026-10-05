@@ -322,6 +322,10 @@ quadrantChart
 ### Mindmap
 
 ```mermaid
+---
+config:
+  layout: dagre
+---
 mindmap
     Root
         A[A]
