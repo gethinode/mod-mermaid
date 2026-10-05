@@ -45,6 +45,7 @@
 {{- $diagramZoomOut := partial "utilities/GetThemeIcon.html" (dict "id" "diagramZoomOut" "default" "fas magnifying-glass-minus") -}}
 {{- $diagramZoomIn := partial "utilities/GetThemeIcon.html" (dict "id" "diagramZoomIn" "default" "fas magnifying-glass-plus") -}}
 {{- $diagramFullscreen := partial "utilities/GetThemeIcon.html" (dict "id" "diagramFullscreen" "default" "fas expand") -}}
+{{- $diagramDownload := partial "utilities/GetThemeIcon.html" (dict "id" "diagramDownload" "default" "fas download") -}}
 
 {{/* Optional alignment modifier (center/end only; start keeps the default flow) */}}
 {{- $alignClass := "" -}}
@@ -58,7 +59,7 @@
          handlers include its assets without requiring `modules = ["mermaid"]` in front matter.
          Both entry points (codeblock render hook and shortcode) funnel through this partial. */}}
     {{ partial "utilities/AddModule.html" (dict "page" $args.page "module" "mermaid") }}
-    {{ if or $args.controls $fs }}
+    {{ if or $args.controls $fs $args.download }}
         {{ if $fs }}{{ partial "utilities/AddModule.html" (dict "page" $args.page "module" "lightbox") }}{{ end }}
         <div class="diagram-container{{ if $fs }} diagram-has-fullscreen{{ end }}{{ $alignClass }}">
             <div class="diagram-controls">
@@ -68,6 +69,12 @@
                     {{- partial "assets/icon.html" (dict "icon" $diagramFullscreen "class" "fa-fw fa-xl" "spacing" false "page" $args.page) -}}
                 </button>
                 {{ end }}
+                {{ if $args.download }}
+                <button type="button" class="control-btn control-btn-download" aria-label="{{ i18n "diagramDownload" }}">
+                    {{- partial "assets/icon.html" (dict "icon" $diagramDownload "class" "fa-fw fa-xl" "spacing" false "page" $args.page) -}}
+                </button>
+                {{ end }}
+                {{ if or $args.controls $fs }}
                 {{/* control-btn-expand resets the pan/zoom (label/icon say "reset"); the class + diagramExpand id are load-bearing — mermaid-panzoom.mjs binds reset to .control-btn-expand, so do not rename them. */}}
                 <button type="button" class="control-btn control-btn-expand" aria-label="{{ i18n "diagramExpand" }}">
                     {{- partial "assets/icon.html" (dict "icon" $diagramExpand "class" "fa-fw fa-xl" "spacing" false "page" $args.page) -}}
@@ -78,6 +85,7 @@
                 <button type="button" class="control-btn control-btn-zoom-in" aria-label="{{ i18n "diagramZoomIn" }}">
                     {{- partial "assets/icon.html" (dict "icon" $diagramZoomIn "class" "fa-fw fa-xl" "spacing" false "page" $args.page) -}}
                 </button>
+                {{ end }}
             </div>
 
             <div class="diagram-wrapper">

@@ -59,6 +59,7 @@ YOUR DIAGRAM
 A diagram accepts two per-diagram arguments — as fenced code-block attributes or shortcode parameters:
 
 - `controls` (bool) — render inline pan/zoom controls.
+- `download` (bool) — render a button that downloads the currently rendered diagram as an SVG file (the browser decides where it is stored). Shown both inline and in the fullscreen dialog.
 - `fullscreen` (`true` | `false` | `auto`) — render a button that opens the diagram in a fullscreen dialog. `auto` enables it only for diagrams whose source has at least `mermaid.autoThreshold` significant lines beyond the diagram-type header. A per-diagram value overrides the site-wide `mermaid.fullscreen` default.
 
 ```mermaid {fullscreen=true}

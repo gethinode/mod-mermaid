@@ -17,6 +17,16 @@ arguments:
     group: partial
   controls:
     release: v1.7.0
+  download:
+    type: bool
+    default: false
+    optional: true
+    comment: >-
+      Adds a download button to the diagram controls, which saves the
+      currently rendered diagram as an SVG file (the browser decides where
+      it is stored). The button is shown in both the inline view and the
+      fullscreen dialog.
+    release: v5.1.0
   fullscreen:
     type: string
     default: false
