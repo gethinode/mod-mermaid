@@ -9,7 +9,7 @@ modules: ["mermaid"]
 
 ### Flowchart (with controls)
 
-```mermaid {controls=true}
+```mermaid {controls=true, download=true}
 flowchart TD
     A[Start] --> B{Is it?}
     B -->|Yes| C[OK]
@@ -322,6 +322,10 @@ quadrantChart
 ### Mindmap
 
 ```mermaid
+---
+config:
+  layout: dagre
+---
 mindmap
     Root
         A[A]
@@ -376,7 +380,7 @@ block-beta
 
 ### Shortcode (with controls and frontmatter)
 
-{{< mermaid controls=true >}}
+{{< mermaid controls=true download=true >}}
 ---
 config:
   layout: elk.stress

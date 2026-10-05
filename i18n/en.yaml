@@ -1,3 +1,5 @@
+- id: diagramDownload
+  translation: "Download SVG"
 - id: diagramFullscreen
   translation: "View fullscreen"
 - id: diagramExpand

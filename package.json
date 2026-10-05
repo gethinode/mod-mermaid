@@ -25,7 +25,7 @@
     "copy:js1": "cpy node_modules/mermaid/dist/mermaid.esm.min.mjs dist --flat",
     "copy:js2": "cpy \"node_modules/mermaid/dist/chunks/mermaid.esm.min/*.mjs\" \"dist/chunks/mermaid.esm.min/\" --flat",
     "copy:js3": "cpy node_modules/@mermaid-js/layout-elk/dist/mermaid-layout-elk.esm.min.mjs dist/layout-elk --flat",
-    "copy:js4": "cpy \"node_modules/@mermaid-js/layout-elk/dist/chunks/mermaid-layout-elk.esm.min/\" \"dist/layout-elk/chunks/mermaid-layout-elk.esm.min/\"",
+    "copy:js4": "cpy \"node_modules/@mermaid-js/layout-elk/dist/chunks/mermaid-layout-elk.esm.min/*\" \"dist/layout-elk/chunks/mermaid-layout-elk.esm.min/\" --flat",
     "test": "pnpm build",
     "upgrade": "pnpm dlx npm-check-updates -u && pnpm mod:update",
     "prepare": "node .husky/install.mjs"

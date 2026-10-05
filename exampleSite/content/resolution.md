@@ -72,3 +72,20 @@ flowchart TD
   K --> L
   L --> M
 ```
+
+
+## 6. Download only → download button, no zoom controls
+
+```mermaid {download=true}
+flowchart TD
+  A --> B
+  B --> C
+```
+
+## 7. Download + fullscreen → button inline and in dialog
+
+```mermaid {fullscreen=true, download=true}
+flowchart TD
+  A --> B
+  B --> C
+```

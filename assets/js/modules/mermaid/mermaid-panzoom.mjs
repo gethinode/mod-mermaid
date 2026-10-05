@@ -128,6 +128,100 @@ function zoomOut(wrapper) {
     updateTransform(wrapper, c.translateX, c.translateY, scale, true)
 }
 
+// Serialize the rendered SVG and offer it as a file download. The on-screen
+// SVG is not portable: labels live in <foreignObject> (invisible outside
+// browsers) and styling lives in a <style> block that stricter renderers
+// (e.g. Inkscape) fail to apply. Re-render the original source with
+// htmlLabels disabled, then inline every computed style, normalize rgba()
+// colors, pin an explicit size, and preserve whitespace — producing a file
+// that renders the same in browsers and standalone SVG tools. Falls back to
+// the on-screen SVG if the re-render fails for any reason.
+const exportProps = [
+    'fill', 'fill-opacity', 'fill-rule',
+    'stroke', 'stroke-width', 'stroke-opacity', 'stroke-dasharray', 'stroke-dashoffset',
+    'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit',
+    'opacity', 'color',
+    'font-family', 'font-size', 'font-weight', 'font-style',
+    'text-anchor', 'dominant-baseline', 'letter-spacing', 'word-spacing',
+    'stop-color', 'stop-opacity'
+]
+
+function inlineStyles(svg) {
+    svg.querySelectorAll('*').forEach(el => {
+        const cs = getComputedStyle(el)
+        const values = Object.fromEntries(exportProps.map(p => [p, cs.getPropertyValue(p)]))
+        for (const p of ['fill', 'stroke']) {
+            // Inkscape cannot parse rgba(): use rgb() and fold the alpha into the opacity
+            if (values[p].startsWith('rgba')) {
+                const [r, g, b, a] = values[p].match(/[\d.]+/g).map(Number)
+                values[p] = `rgb(${r}, ${g}, ${b})`
+                values[`${p}-opacity`] = `${a * parseFloat(values[`${p}-opacity`])}`
+            }
+        }
+        el.setAttribute('style', exportProps.map(p => `${p}:${values[p]}`).join(';'))
+    })
+}
+
+async function downloadSvg(wrapper) {
+    const pre = wrapper.querySelector('pre.mermaid')
+    if (!pre) return
+    const source = new XMLSerializer()
+    let exportSvg = null
+
+    const encoded = pre.getAttribute('data-original-code')
+    if (encoded) {
+        try {
+            // data-original-code holds the innerHTML-encoded diagram source
+            const decoder = document.createElement('textarea')
+            decoder.innerHTML = encoded
+            const mermaid = (await import('/js/mermaid/mermaid.esm.min.mjs')).default
+            const api = mermaid.mermaidAPI
+            const prevHtmlLabels = api.getConfig().htmlLabels
+            api.updateSiteConfig({ htmlLabels: false })
+            const host = document.createElement('div')
+            host.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none'
+            document.body.appendChild(host)
+            try {
+                const { svg } = await api.render(`mermaid-export-${Date.now()}`, decoder.value, host)
+                host.innerHTML = svg
+                const el = host.querySelector('svg')
+                inlineStyles(el)
+                el.querySelector('style')?.remove()
+                // Explicit size: standalone viewers cannot resolve width="100%"
+                const box = el.viewBox.baseVal
+                if (box && box.width && box.height) {
+                    el.setAttribute('width', box.width)
+                    el.setAttribute('height', box.height)
+                }
+                // Keep leading/trailing spaces inside tspans (SVG default strips them)
+                el.setAttribute('xml:space', 'preserve')
+                exportSvg = source.serializeToString(el)
+            } finally {
+                host.remove()
+                api.updateSiteConfig({ htmlLabels: prevHtmlLabels ?? true })
+            }
+        } catch {
+            exportSvg = null
+        }
+    }
+
+    if (!exportSvg) {
+        const svg = pre.querySelector('svg')
+        if (!svg) return
+        exportSvg = source.serializeToString(svg)
+    }
+
+    const blob = new Blob([exportSvg], { type: 'image/svg+xml;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'diagram.svg'
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+    URL.revokeObjectURL(url)
+}
+
 // Mouse drag (pan) — bound only where gestures are active.
 function handleMousedown(wrapper, e) {
     e.preventDefault()
@@ -264,9 +358,11 @@ function initWrapper(wrapper) {
     const btnExpand = container.querySelector('.control-btn-expand')
     const btnZoomOut = container.querySelector('.control-btn-zoom-out')
     const btnZoomIn = container.querySelector('.control-btn-zoom-in')
+    const btnDownload = container.querySelector('.control-btn-download')
     if (btnExpand) btnExpand.addEventListener('click', reset)
     if (btnZoomOut) btnZoomOut.addEventListener('click', () => zoomOut(wrapper))
     if (btnZoomIn) btnZoomIn.addEventListener('click', () => zoomIn(wrapper))
+    if (btnDownload) btnDownload.addEventListener('click', () => downloadSvg(wrapper))
 
     if (inDialog) {
         // Modal: pan/zoom own the viewport, wheel needs no modifier. The clone
