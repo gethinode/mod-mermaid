@@ -6,6 +6,8 @@
 import mermaid from '/js/mermaid/mermaid.esm.min.mjs';
 
 {{ if site.Params.modules.mermaid.elk -}}
+{{- /* The ELK bundle is mounted as an asset so that only sites enabling it publish it. */ -}}
+{{- range resources.Match "js/mermaid-layout-elk/**" }}{{ $_ := .Publish }}{{ end }}
 import elkLayouts from '/js/mermaid-layout-elk/mermaid-layout-elk.esm.min.mjs';
 {{- end }}
 
