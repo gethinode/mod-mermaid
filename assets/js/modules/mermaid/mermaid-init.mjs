@@ -5,13 +5,6 @@
 
 import mermaid from '/js/mermaid/mermaid.esm.min.mjs';
 
-{{ if site.Params.modules.mermaid.elk -}}
-{{- /* The ELK bundle is an asset so that only sites enabling it publish it; copy each file to
-       the /js/ path the import below (and the bundle's own relative imports) expect. */ -}}
-{{- range resources.Match "mermaid-layout-elk/**" }}{{ $_ := (. | resources.Copy (printf "js/%s" (strings.TrimPrefix "/" .Name))).Publish }}{{ end }}
-import elkLayouts from '/js/mermaid-layout-elk/mermaid-layout-elk.esm.min.mjs';
-{{- end }}
-
 (function(window){
     'use strict'
     window.mermaid = mermaid
@@ -223,8 +216,5 @@ import elkLayouts from '/js/mermaid-layout-elk/mermaid-layout-elk.esm.min.mjs';
         mermaid.run({ nodes })
     })
 
-    {{ if site.Params.modules.mermaid.elk -}}
-    mermaid.registerLayoutLoaders(elkLayouts);
-    {{- end }}
 })(window);
 

@@ -9,15 +9,6 @@
   [[module.mounts]]
     source = "dist/chunks/mermaid.esm.min"
     target = "static/js/mermaid/chunks/mermaid.esm.min"
-  # The ELK layout engine is an asset, not a static file: Hugo copies static mounts into
-  # the publish directory unconditionally (10 MB on every site), but writes an asset only
-  # when a template publishes it. mermaid-init.mjs does so when modules.mermaid.elk is
-  # set, at the /js/mermaid-layout-elk/ URLs it imports from. It is mounted outside
-  # assets/js/ on purpose: site templates bundle everything matching "js/**.mjs", and this
-  # minified code must not be swept into (or parsed as part of) that bundle.
-  [[module.mounts]]
-    source = "dist/layout-elk"
-    target = "assets/mermaid-layout-elk"
   [[module.mounts]]
     source = 'assets'
     target = 'assets'
