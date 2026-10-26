@@ -18,9 +18,6 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^21.2.4
         version: 21.2.4
-      '@mermaid-js/layout-elk':
-        specifier: ^1.0.1
-        version: 1.0.1(mermaid@12.2.0)
       '@semantic-release/exec':
         specifier: ^7.1.0
         version: 7.1.0(semantic-release@25.0.9(typescript@5.4.5))
@@ -195,12 +192,6 @@ packages:
   '@isaacs/fs-minipass@4.0.1':
     resolution: {integrity: sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w==}
     engines: {node: '>=18.0.0'}
-
-  '@mermaid-js/layout-elk@1.0.1':
-    resolution: {integrity: sha512-6KzQTCAy4lSlETy5fBOYyUD0JQtZk/ihacVHSmAyo00hW7REOhKQGjNIxVwAnI+HtJdfpGnSMxkp9qnJDijppw==}
-    engines: {node: '>=22.12.0'}
-    peerDependencies:
-      mermaid: ^12.0.0
 
   '@mermaid-js/parser@2.0.1':
     resolution: {integrity: sha512-j37dj/h6p6pots1L7pLPPNuABEEu9WP4OYg9pW1g+nYG331j0+3canE9OagtYdytYvdSAMG+2fKU5cxep6LgjA==}
@@ -605,10 +596,6 @@ packages:
   commander@7.2.0:
     resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
     engines: {node: '>= 10'}
-
-  commander@8.3.0:
-    resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==}
-    engines: {node: '>= 12'}
 
   compare-func@2.0.0:
     resolution: {integrity: sha512-zHig5N+tPWARooBnb0Zx1MFcdfpyJrfTJ3Y5L+IFvUm8rM74hHz66z0gw0x4tijh5CorKkKUCnW82R2vmpeCRA==}
@@ -1231,10 +1218,6 @@ packages:
   junk@4.0.1:
     resolution: {integrity: sha512-Qush0uP+G8ZScpGMZvHUiRfI0YBWuB3gVBYlI0v0vvOJt5FLicco+IkP0a50LqTTQhmts/m6tP5SWE+USyIvcQ==}
     engines: {node: '>=12.20'}
-
-  katex@0.16.47:
-    resolution: {integrity: sha512-Eeo8Ys1doU1z+x8AZsPpQu+p/QcZBI5PeOo7QGQdy2x2m0MU/hYagBbGOmXwr5KVbEfVuWv9LpnQWeehogurjg==}
-    hasBin: true
 
   katex@0.18.10:
     resolution: {integrity: sha512-/B6p9eY9DX7aHBfpkHdpirDTZ5QH9xTwL9y837PWuzuv41O5jFdqNQwVQEQsimY0/iVNkwBY4+4hMfhQ7d4Dbw==}
@@ -2200,16 +2183,6 @@ snapshots:
     dependencies:
       minipass: 7.1.3
 
-  '@mermaid-js/layout-elk@1.0.1(mermaid@12.2.0)':
-    dependencies:
-      d3: 7.9.0
-      dagre-d3-es: 7.0.14
-      dayjs: 1.11.23
-      dompurify: 3.4.17
-      elkjs: 0.9.3
-      katex: 0.16.47
-      mermaid: 12.2.0
-
   '@mermaid-js/parser@2.0.1':
     dependencies:
       '@chevrotain/types': 13.2.0
@@ -2686,8 +2659,6 @@ snapshots:
   commander@15.0.0: {}
 
   commander@7.2.0: {}
-
-  commander@8.3.0: {}
 
   compare-func@2.0.0:
     dependencies:
@@ -3336,10 +3307,6 @@ snapshots:
       graceful-fs: 4.2.11
 
   junk@4.0.1: {}
-
-  katex@0.16.47:
-    dependencies:
-      commander: 8.3.0
 
   katex@0.18.10:
     dependencies:
