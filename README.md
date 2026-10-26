@@ -112,7 +112,6 @@ The following table defines the available layout algorithms. The `elk` values us
 |------------------|-------------|
 | dagre            | The default Mermaid layout. |
 | elk              | The default ELK layout, which is `elk.layered`. |
-| elk.layered      | Layered layout. |
 | elk.stress       | Stress layout. |
 | elk.force        | Force layout. |
 | elk.mrtree       | Multi-root tree layout. |
