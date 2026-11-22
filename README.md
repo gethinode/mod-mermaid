@@ -117,6 +117,20 @@ The following table defines the available layout algorithms. The `elk` values us
 | elk.mrtree       | Multi-root tree layout. |
 | elk.sporeOverlap | Spore overlap layout. |
 
+## Dynamic content and custom renderers
+
+The module renders every `.mermaid` element on page load, and again after an htmx swap. It listens for both `htmx:afterSwap` (htmx 2) and `htmx:after:swap` (htmx 4). A node that carries `data-processed` is never rendered twice.
+
+After the module initializes Mermaid, which happens on page load and on every theme change, it dispatches a `mermaid:initialized` event on `document`. Its `detail.dark` is `true` when the dark theme is active.
+
+A page that renders a diagram itself should set the diagram's plain-text source on the `.mermaid` element as `data-diagram-source`. The module then re-renders that diagram on a theme change, and Download SVG exports a portable file from the source rather than from the on-screen svg. Without the attribute, the diagram keeps its old theme, and the export falls back to the on-screen svg.
+
+```html
+<pre class="mermaid" data-diagram-source="graph TD&#10;  A --> B"></pre>
+```
+
+The value is the source as Mermaid reads it, without HTML entities. The older `data-original-code` attribute, which holds innerHTML-encoded source, is still read when `data-diagram-source` is absent.
+
 ## Contributing
 
 This module uses [semantic-release][semantic-release] to automate the release of new versions. The package uses `husky` and `commitlint` to ensure commit messages adhere to the [Conventional Commits][conventionalcommits] specification. You can run `npx git-cz` from the terminal to help prepare the commit message.
