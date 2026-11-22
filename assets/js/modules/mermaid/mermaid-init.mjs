@@ -14,22 +14,70 @@ import mermaid from '/js/mermaid/mermaid.esm.min.mjs';
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
     }
 
-    const forEachDiagram = (func) => {
-        return new Promise((resolve, reject) => {
-            try {
-                var els = document.querySelectorAll(elementCode),
-                    count = els.length;
-                if (count === 0) { resolve(); return; }
-                els.forEach(element => {
-                    func(element)
-                    count--
-                    if(count == 0) {
-                        resolve()
-                    }
-                });
-            } catch (error) {
-                reject(error)
-            }
+    // The module owns every diagram id. mermaid.run() derives ids from Date.now(),
+    // or from a counter that restarts on each call, so two passes in the same
+    // millisecond share an id and one diagram draws into the other's container
+    // (#418). The prefix also differs from Mermaid's own `mermaid-<n>` ids, so a
+    // page that calls mermaid.run() itself cannot collide with the module.
+    let diagramSeq = 0
+    const nextDiagramId = () => `mermaid-mod-${++diagramSeq}`
+
+    // Strip the indentation shared by every line after the first, like the
+    // dedent mermaid.run() applies before rendering.
+    const dedent = (text) => {
+        const lines = text.split('\n')
+        const indent = (line) => line.match(/^[\t ]*/)[0].length
+        const widths = lines.slice(1).filter(line => line.trim() !== '').map(indent)
+        const strip = widths.length ? Math.min(...widths) : 0
+        if (!strip) return text
+        return [lines[0], ...lines.slice(1).map(line => line.slice(Math.min(strip, indent(line))))].join('\n')
+    }
+
+    // Turn a diagram's markup into plain-text source the way mermaid.run() does:
+    // entities are decoded, and markup such as <br/> is kept as text.
+    const decodeSource = (html) => {
+        const decoder = document.createElement('textarea')
+        decoder.innerHTML = html
+        return dedent(decoder.value).trim().replace(/<br\s*\/?>/gi, '<br/>')
+    }
+
+    // The diagram's plain-text source. `data-diagram-source` is the documented
+    // contract for pages that render diagrams themselves (#420);
+    // `data-original-code` (innerHTML-encoded) is still read for older markup.
+    const sourceOf = (element) => {
+        const source = element.getAttribute('data-diagram-source')
+        if (source != null) return source
+        const legacy = element.getAttribute('data-original-code')
+        return legacy != null ? decodeSource(legacy) : null
+    }
+
+    // Record the source of a diagram that has not been rendered yet, before its
+    // content is replaced by an svg.
+    const captureSource = (element) => {
+        if (element.getAttribute('data-processed') || sourceOf(element) != null) return
+        element.setAttribute('data-diagram-source', decodeSource(element.innerHTML))
+    }
+
+    const renderDiagram = async (element) => {
+        const source = sourceOf(element)
+        if (source == null) return
+        // Mark the node before the render is queued, so an overlapping swap or a
+        // page's own mermaid.run() does not render it a second time.
+        element.setAttribute('data-processed', 'true')
+        try {
+            const { svg, bindFunctions } = await mermaid.render(nextDiagramId(), source, element)
+            element.innerHTML = svg
+            if (bindFunctions) bindFunctions(element)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    // Render every node that has not been rendered yet.
+    const renderDiagrams = (nodes) => {
+        nodes.forEach(element => {
+            captureSource(element)
+            if (!element.getAttribute('data-processed')) renderDiagram(element)
         })
     }
 
@@ -148,26 +196,20 @@ import mermaid from '/js/mermaid/mermaid.esm.min.mjs';
             look: '{{ site.Params.modules.mermaid.look | default "classic" }}',
         }
         mermaid.initialize(params)
-        // Re-run any static .mermaid elements still in the DOM (e.g. non-HTMX pages).
-        // HTMX pages dispatch 'mermaid:initialized' so their own renderer can re-inject.
-        const staticNodes = document.querySelectorAll(elementCode)
-        if (staticNodes.length) {
-            mermaid.run({ nodes: staticNodes })
-        }
+        // Render any .mermaid elements still in the DOM that are not rendered yet.
+        // Pages that render diagrams themselves listen for 'mermaid:initialized'.
+        renderDiagrams(document.querySelectorAll(elementCode))
         document.dispatchEvent(new CustomEvent('mermaid:initialized', { detail: { dark } }))
     }
 
     const updateTheme = (theme) => {
-        forEachDiagram(element => {
-            // invalidate the diagrams and make sure to keep the content
-            if (element.getAttribute('data-original-code') != null) {
-                element.removeAttribute('data-processed')
-                element.innerHTML = element.getAttribute('data-original-code')
-            }
-        }).then(() => {
-            loadMermaid(theme === 'dark')
+        // Invalidate every diagram whose source is known, including diagrams a
+        // page rendered itself, so that loadMermaid() renders them in the new theme.
+        document.querySelectorAll(elementCode).forEach(element => {
+            captureSource(element)
+            if (sourceOf(element) != null) element.removeAttribute('data-processed')
         })
-        .catch(console.error)
+        loadMermaid(theme === 'dark')
     }
 
     // Bootstrap data-bs-theme attribute changed — covers all toggle sources
@@ -199,22 +241,19 @@ import mermaid from '/js/mermaid/mermaid.esm.min.mjs';
     document.addEventListener("DOMContentLoaded", () => {
         createPseudoStyledElements()
         const bsTheme = document.documentElement.getAttribute('data-bs-theme')
-        forEachDiagram(element => {
-            element.setAttribute('data-original-code', element.innerHTML)
-        })
-        .catch( console.error)
         updateTheme(bsTheme)
     });
 
-    document.body.addEventListener('htmx:afterSwap', (e) => {
-        const target = e.detail.target || e.target
-        const nodes = target.querySelectorAll(elementCode)
-        if (nodes.length === 0) return
-        nodes.forEach(element => {
-            element.setAttribute('data-original-code', element.innerHTML)
-        })
-        mermaid.run({ nodes })
-    })
+    // htmx 2 fires htmx:afterSwap; htmx 4 renamed it to htmx:after:swap (#419).
+    // data-processed stops a page that fires both from rendering a diagram twice.
+    const onSwap = (e) => {
+        const target = (e.detail && e.detail.target) || e.target
+        if (!target || !target.querySelectorAll) return
+        renderDiagrams(target.querySelectorAll(elementCode))
+    }
+    for (const evt of ['htmx:afterSwap', 'htmx:after:swap']) {
+        document.body.addEventListener(evt, onSwap)
+    }
 
 })(window);
 

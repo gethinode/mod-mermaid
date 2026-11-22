@@ -168,12 +168,18 @@ async function downloadSvg(wrapper) {
     const source = new XMLSerializer()
     let exportSvg = null
 
-    const encoded = pre.getAttribute('data-original-code')
-    if (encoded) {
-        try {
-            // data-original-code holds the innerHTML-encoded diagram source
+    // Prefer the plain-text source; fall back to the innerHTML-encoded legacy attribute.
+    let diagramSource = pre.getAttribute('data-diagram-source')
+    if (diagramSource == null) {
+        const encoded = pre.getAttribute('data-original-code')
+        if (encoded) {
             const decoder = document.createElement('textarea')
             decoder.innerHTML = encoded
+            diagramSource = decoder.value
+        }
+    }
+    if (diagramSource) {
+        try {
             const mermaid = (await import('/js/mermaid/mermaid.esm.min.mjs')).default
             const api = mermaid.mermaidAPI
             const prevHtmlLabels = api.getConfig().htmlLabels
@@ -182,7 +188,7 @@ async function downloadSvg(wrapper) {
             host.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none'
             document.body.appendChild(host)
             try {
-                const { svg } = await api.render(`mermaid-export-${Date.now()}`, decoder.value, host)
+                const { svg } = await api.render(`mermaid-export-${Date.now()}`, diagramSource, host)
                 host.innerHTML = svg
                 const el = host.querySelector('svg')
                 inlineStyles(el)
