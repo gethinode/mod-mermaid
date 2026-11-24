@@ -3,7 +3,8 @@
 {{ range $k, $v := $sources }}
     {{- $target := printf "css/%s.css" $k -}}
 
-    {{- $options := (dict "transpiler" "libsass" "targetPath" $target) -}}
+    {{- $transpiler := cond (lt hugo.Version "0.170.0") "libsass" "dartsass" -}}
+    {{- $options := (dict "transpiler" $transpiler "targetPath" $target) -}}
     {{- $options = merge $options (dict "outputStyle" "expanded") -}}
 
     {{- $css := resources.GetMatch $v | resources.ExecuteAsTemplate "style.app.scss" . | toCSS $options -}}
